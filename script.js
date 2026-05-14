@@ -9,6 +9,9 @@ const galleryTitle = document.querySelector("#galleryTitle");
 const galleryThumbs = document.querySelector("#galleryThumbs");
 const galleryPrev = document.querySelector("#galleryPrev");
 const galleryNext = document.querySelector("#galleryNext");
+const siteHeader = document.querySelector(".site-header");
+const menuToggle = document.querySelector(".menu-toggle");
+const mobileMenu = document.querySelector("#mobileMenu");
 
 const galleryPhotos = [
   {
@@ -50,6 +53,18 @@ const galleryPhotos = [
 ];
 
 let currentGalleryIndex = 0;
+
+menuToggle?.addEventListener("click", () => {
+  const isOpen = siteHeader?.classList.toggle("is-menu-open");
+  menuToggle.setAttribute("aria-expanded", String(Boolean(isOpen)));
+});
+
+mobileMenu?.querySelectorAll("a").forEach((link) => {
+  link.addEventListener("click", () => {
+    siteHeader?.classList.remove("is-menu-open");
+    menuToggle?.setAttribute("aria-expanded", "false");
+  });
+});
 
 function showGalleryPhoto(index) {
   if (!gallerySlide || !galleryCategory || !galleryTitle) return;
