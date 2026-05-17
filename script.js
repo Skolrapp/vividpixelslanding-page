@@ -12,6 +12,8 @@ const galleryNext = document.querySelector("#galleryNext");
 const siteHeader = document.querySelector(".site-header");
 const menuToggle = document.querySelector(".menu-toggle");
 const mobileMenu = document.querySelector("#mobileMenu");
+const galleryFilterButtons = document.querySelectorAll("[data-gallery-filter]");
+const portfolioCards = document.querySelectorAll("[data-gallery-type]");
 
 const galleryPhotos = [
   {
@@ -172,4 +174,19 @@ reviewForm?.addEventListener("submit", (event) => {
   review.querySelector("strong").textContent = name;
   reviewList.prepend(review);
   reviewForm.reset();
+});
+
+galleryFilterButtons.forEach((button) => {
+  button.addEventListener("click", () => {
+    const filter = button.dataset.galleryFilter || "all";
+
+    galleryFilterButtons.forEach((filterButton) => {
+      filterButton.classList.toggle("is-active", filterButton === button);
+    });
+
+    portfolioCards.forEach((card) => {
+      const type = card.dataset.galleryType;
+      card.classList.toggle("is-hidden", filter !== "all" && type !== filter);
+    });
+  });
 });

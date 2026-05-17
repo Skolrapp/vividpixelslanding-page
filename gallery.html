@@ -1,0 +1,161 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Vivid Pixels | Wedding Galleries & Films</title>
+    <meta
+      name="description"
+      content="Browse Vivid Pixels wedding galleries, engagement sessions, decor details, and wedding films."
+    />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <header class="site-header">
+      <a class="brand" href="index.html" aria-label="Vivid Pixels home">
+        <img src="assets/vivid-pixels-logo.png" alt="Vivid Pixels" />
+      </a>
+      <nav aria-label="Main navigation">
+        <a href="index.html#packages">Preview Packages</a>
+        <a href="https://quotemini.vividpixels.co.tz" target="_blank" rel="noopener noreferrer">Mini Event Quote</a>
+        <a href="gallery.html" aria-current="page">Galleries</a>
+        <a href="index.html#reviews">Testimonials</a>
+        <a href="index.html#contact">Contact</a>
+      </nav>
+      <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="mobileMenu">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+      <a class="header-cta" href="index.html#contact">Book a Date</a>
+      <div class="mobile-menu" id="mobileMenu">
+        <a href="index.html#packages">Preview Packages</a>
+        <a href="https://quotemini.vividpixels.co.tz" target="_blank" rel="noopener noreferrer">Mini Event Quote</a>
+        <a href="gallery.html">Galleries</a>
+        <a href="index.html#reviews">Testimonials</a>
+        <a href="index.html#contact">Contact</a>
+      </div>
+    </header>
+
+    <main>
+      <section class="gallery-hero" aria-labelledby="gallery-page-title">
+        <div>
+          <p class="eyebrow">Vivid Pixels portfolio</p>
+          <h1 id="gallery-page-title">Wedding galleries and cinematic stories.</h1>
+          <p>
+            A curated place for complete wedding galleries, engagement sessions,
+            details, decor, and video highlights. Keep the page light, then open
+            full albums through gallery links.
+          </p>
+          <div class="hero-actions">
+            <a class="button button-primary" href="#galleryGrid">Browse Galleries</a>
+            <a class="button button-secondary" href="https://vividpixelsstudio.pixieset.com" target="_blank" rel="noopener noreferrer">Open Full Gallery</a>
+          </div>
+        </div>
+        <div class="gallery-hero-media" aria-hidden="true">
+          <img src="assets/gallery/wedding-2.jpg" alt="" />
+          <img src="assets/gallery/wedding-5.jpg" alt="" />
+        </div>
+      </section>
+
+      <section class="section gallery-page-section" aria-labelledby="gallery-grid-title">
+        <div class="section-heading work-heading">
+          <div>
+            <p class="eyebrow">Explore the work</p>
+            <h2 id="gallery-grid-title">Choose a story to view.</h2>
+            <p>Use the filters to browse by celebration type. Each card can point to a Pixieset gallery or a hosted video.</p>
+          </div>
+          <div class="gallery-filters" aria-label="Filter gallery cards">
+            <button class="is-active" type="button" data-gallery-filter="all">All</button>
+            <button type="button" data-gallery-filter="wedding">Weddings</button>
+            <button type="button" data-gallery-filter="engagement">Engagement</button>
+            <button type="button" data-gallery-filter="details">Details</button>
+            <button type="button" data-gallery-filter="video">Video</button>
+          </div>
+        </div>
+
+        <div class="portfolio-grid" id="galleryGrid">
+          <article class="portfolio-card" data-gallery-type="wedding">
+            <a href="https://vividpixelsstudio.pixieset.com" target="_blank" rel="noopener noreferrer">
+              <img src="assets/gallery/wedding-1.jpg" alt="Wedding gallery preview" />
+              <span class="portfolio-type">Wedding Gallery</span>
+              <div>
+                <p>Asha & Kelvin</p>
+                <h3>Full-day wedding story</h3>
+                <span>View Gallery</span>
+              </div>
+            </a>
+          </article>
+
+          <article class="portfolio-card" data-gallery-type="wedding">
+            <a href="https://vividpixelsstudio.pixieset.com" target="_blank" rel="noopener noreferrer">
+              <img src="assets/gallery/wedding-3.jpg" alt="Wedding gallery preview" />
+              <span class="portfolio-type">Wedding Gallery</span>
+              <div>
+                <p>Neema & Joseph</p>
+                <h3>Elegant ceremony and reception</h3>
+                <span>View Gallery</span>
+              </div>
+            </a>
+          </article>
+
+          <article class="portfolio-card" data-gallery-type="engagement">
+            <a href="https://vividpixelsstudio.pixieset.com" target="_blank" rel="noopener noreferrer">
+              <img src="assets/gallery/wedding-4.jpg" alt="Engagement gallery preview" />
+              <span class="portfolio-type">Engagement</span>
+              <div>
+                <p>Brian & Sarah</p>
+                <h3>Pre-wedding portrait session</h3>
+                <span>View Gallery</span>
+              </div>
+            </a>
+          </article>
+
+          <article class="portfolio-card" data-gallery-type="details">
+            <a href="https://vividpixelsstudio.pixieset.com" target="_blank" rel="noopener noreferrer">
+              <img src="assets/gallery/wedding-6.jpg" alt="Wedding detail gallery preview" />
+              <span class="portfolio-type">Details & Decor</span>
+              <div>
+                <p>Decor collection</p>
+                <h3>Tables, florals, rings, and spaces</h3>
+                <span>View Gallery</span>
+              </div>
+            </a>
+          </article>
+
+          <article class="portfolio-card portfolio-video" data-gallery-type="video">
+            <a href="https://vividpixelsstudio.pixieset.com" target="_blank" rel="noopener noreferrer">
+              <img src="assets/gallery/hero.jpg" alt="Wedding film preview" />
+              <span class="play-badge" aria-hidden="true">▶</span>
+              <span class="portfolio-type">Wedding Film</span>
+              <div>
+                <p>Cinematic highlights</p>
+                <h3>Films, reels, drone moments, and SDEs</h3>
+                <span>Watch Video</span>
+              </div>
+            </a>
+          </article>
+
+          <article class="portfolio-card" data-gallery-type="wedding">
+            <a href="https://vividpixelsstudio.pixieset.com" target="_blank" rel="noopener noreferrer">
+              <img src="assets/gallery/wedding-5.jpg" alt="Wedding gallery preview" />
+              <span class="portfolio-type">Wedding Gallery</span>
+              <div>
+                <p>Diana & Frank</p>
+                <h3>Warm celebration and family moments</h3>
+                <span>View Gallery</span>
+              </div>
+            </a>
+          </article>
+        </div>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <span>Vivid Pixels</span>
+      <span>Wedding galleries, films, and complete client albums</span>
+    </footer>
+
+    <script src="script.js"></script>
+  </body>
+</html>

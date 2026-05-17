@@ -96,6 +96,10 @@ nav a:hover {
   color: var(--white);
 }
 
+nav a[aria-current="page"] {
+  color: var(--orange);
+}
+
 .menu-toggle,
 .mobile-menu {
   display: none;
@@ -752,6 +756,195 @@ textarea:focus {
     var(--black);
 }
 
+.gallery-hero {
+  width: min(1240px, 100%);
+  display: grid;
+  grid-template-columns: minmax(0, 0.9fr) minmax(360px, 0.85fr);
+  gap: clamp(28px, 6vw, 72px);
+  align-items: center;
+  margin: 0 auto;
+  padding: 98px clamp(20px, 5vw, 58px) 72px;
+}
+
+.gallery-hero h1 {
+  font-size: clamp(46px, 7vw, 92px);
+}
+
+.gallery-hero p:not(.eyebrow) {
+  max-width: 620px;
+  color: var(--silver);
+  font-size: 18px;
+  line-height: 1.75;
+}
+
+.gallery-hero-media {
+  display: grid;
+  grid-template-columns: 0.82fr 1fr;
+  gap: 16px;
+  align-items: end;
+}
+
+.gallery-hero-media img {
+  min-height: 430px;
+  border-radius: 28px;
+  object-fit: cover;
+  box-shadow: var(--shadow);
+}
+
+.gallery-hero-media img:first-child {
+  min-height: 520px;
+}
+
+.gallery-page-section {
+  padding-top: 58px;
+}
+
+.gallery-filters {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  gap: 8px;
+}
+
+.gallery-filters button {
+  min-height: 42px;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  padding: 0 15px;
+  background: #fffaf2;
+  color: var(--silver);
+  font: inherit;
+  font-size: 12px;
+  font-weight: 900;
+  cursor: pointer;
+}
+
+.gallery-filters button:hover,
+.gallery-filters button.is-active {
+  border-color: rgba(184, 107, 56, 0.34);
+  background: linear-gradient(135deg, var(--gold), var(--orange));
+  color: #111111;
+}
+
+.portfolio-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 18px;
+}
+
+.portfolio-card {
+  min-height: 430px;
+  overflow: hidden;
+  border: 1px solid var(--line);
+  border-radius: 26px;
+  background: #fffaf2;
+  box-shadow: 0 18px 60px rgba(41, 31, 22, 0.1);
+}
+
+.portfolio-card.is-hidden {
+  display: none;
+}
+
+.portfolio-card a {
+  position: relative;
+  height: 100%;
+  min-height: 430px;
+  display: block;
+  color: #fffaf2;
+  text-decoration: none;
+}
+
+.portfolio-card img {
+  position: absolute;
+  inset: 0;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 700ms ease, filter 700ms ease;
+}
+
+.portfolio-card a::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, rgba(0, 0, 0, 0.04) 26%, rgba(0, 0, 0, 0.78));
+}
+
+.portfolio-card:hover img {
+  transform: scale(1.05);
+  filter: saturate(1.08);
+}
+
+.portfolio-card div,
+.portfolio-type,
+.play-badge {
+  position: absolute;
+  z-index: 1;
+}
+
+.portfolio-type {
+  top: 18px;
+  left: 18px;
+  border-radius: 999px;
+  padding: 8px 11px;
+  background: rgba(255, 250, 242, 0.9);
+  color: var(--copper);
+  font-size: 11px;
+  font-weight: 900;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+.portfolio-card div {
+  left: 22px;
+  right: 22px;
+  bottom: 22px;
+}
+
+.portfolio-card p {
+  margin-bottom: 8px;
+  color: var(--gold);
+  font-size: 13px;
+  font-weight: 900;
+}
+
+.portfolio-card h3 {
+  max-width: 420px;
+  margin-bottom: 16px;
+  color: #fffaf2;
+  font-size: 31px;
+  text-shadow: 0 2px 18px rgba(0, 0, 0, 0.28);
+}
+
+.portfolio-card div span:last-child {
+  color: #fffaf2;
+  font-size: 13px;
+  font-weight: 900;
+}
+
+.portfolio-card div span:last-child::after {
+  content: "↗";
+  margin-left: 8px;
+  color: var(--gold);
+}
+
+.portfolio-video {
+  grid-column: span 2;
+}
+
+.play-badge {
+  top: 50%;
+  left: 50%;
+  width: 70px;
+  height: 70px;
+  display: grid;
+  place-items: center;
+  border-radius: 50%;
+  background: rgba(255, 250, 242, 0.92);
+  color: var(--orange);
+  font-size: 24px;
+  transform: translate(-50%, -50%);
+}
+
 .site-footer {
   display: flex;
   justify-content: space-between;
@@ -808,6 +1001,7 @@ textarea:focus {
   .intro-strip,
   .split-heading,
   .work-heading,
+  .gallery-hero,
   .service-grid,
   .process-grid,
   .package-grid,
@@ -816,6 +1010,38 @@ textarea:focus {
   .gallery-panel,
   .contact-band {
     grid-template-columns: 1fr;
+  }
+
+  .gallery-hero {
+    padding-top: 72px;
+  }
+
+  .gallery-hero-media {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .gallery-hero-media img,
+  .gallery-hero-media img:first-child {
+    min-height: 320px;
+  }
+
+  .gallery-filters {
+    justify-content: flex-start;
+    overflow-x: auto;
+    flex-wrap: nowrap;
+    padding-bottom: 4px;
+  }
+
+  .gallery-filters button {
+    flex: 0 0 auto;
+  }
+
+  .portfolio-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .portfolio-video {
+    grid-column: auto;
   }
 
   .slide-stage,
