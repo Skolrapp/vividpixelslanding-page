@@ -292,7 +292,7 @@ function renderPortfolioCards(entries) {
 
       return `
         <article class="portfolio-card${isVideo ? " portfolio-video" : ""}" data-gallery-type="${category}">
-          <a href="${link}" target="_blank" rel="noopener noreferrer">
+          <a href="${link}">
             <img src="${image}" alt="${name} gallery preview" onerror="this.src='${fallbackImage}'" />
             ${isVideo ? '<span class="play-badge" aria-hidden="true">▶</span>' : ""}
             <span class="portfolio-type">${formatPortfolioType(category)}</span>
