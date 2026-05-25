@@ -246,7 +246,7 @@ function formatPortfolioType(category) {
   const labels = {
     wedding: "Wedding Gallery",
     engagement: "Engagement",
-    details: "Details & Decor",
+    portrait: "Portrait",
     video: "Wedding Film",
   };
 
@@ -311,8 +311,9 @@ function renderPortfolioCards(entries) {
   portfolioGrid.innerHTML = entries
     .map((entry, index) => {
       const rawCategory = (entry.category || "wedding").toLowerCase();
-      const category = ["wedding", "engagement", "details", "video"].includes(rawCategory)
-        ? rawCategory
+      const normalizedCategory = rawCategory === "details" ? "portrait" : rawCategory;
+      const category = ["wedding", "engagement", "portrait", "video"].includes(normalizedCategory)
+        ? normalizedCategory
         : "wedding";
       const isVideo = category === "video";
       const image = escapeHtml(getCoverImage(entry, index));
@@ -376,7 +377,8 @@ function renderPortfolioCards(entries) {
 function applyGalleryFilter(filter) {
   document.querySelectorAll("[data-gallery-type]").forEach((card) => {
     const type = card.dataset.galleryType;
-    card.classList.toggle("is-hidden", filter !== "all" && type !== filter);
+    const shouldHide = filter === "all" ? type === "video" : type !== filter;
+    card.classList.toggle("is-hidden", shouldHide);
   });
 }
 
