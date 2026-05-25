@@ -14,7 +14,6 @@ const menuToggle = document.querySelector(".menu-toggle");
 const mobileMenu = document.querySelector("#mobileMenu");
 const galleryFilterButtons = document.querySelectorAll("[data-gallery-filter]");
 const portfolioGrid = document.querySelector("#galleryGrid");
-const gallerySyncNote = document.querySelector("#gallerySyncNote");
 
 const gallerySheetUrl =
   "https://docs.google.com/spreadsheets/d/1kKx2ZRvjnNcYvTL9Tu3R9yrae7F5WcMi/gviz/tq?tqx=out:csv&sheet=Gallery";
@@ -417,13 +416,7 @@ async function loadGallerySheet() {
       document.querySelector("[data-gallery-filter].is-active")?.dataset.galleryFilter || "all",
     );
 
-    if (gallerySyncNote) {
-      gallerySyncNote.textContent = "Updated from the Vivid Pixels Gallery Manager sheet.";
-    }
   } catch (error) {
-    if (gallerySyncNote) {
-      gallerySyncNote.textContent = "Showing sample gallery cards. Publish or share the Google Sheet CSV to load live updates.";
-    }
     console.warn(error);
   }
 }
