@@ -307,6 +307,8 @@ function getVideoEmbedUrl(link) {
 function renderPortfolioCards(entries) {
   if (!portfolioGrid || !entries.length) return;
 
+  let videoIndex = 0;
+
   portfolioGrid.innerHTML = entries
     .map((entry, index) => {
       const rawCategory = (entry.category || "wedding").toLowerCase();
@@ -319,14 +321,22 @@ function renderPortfolioCards(entries) {
       const link = escapeHtml(entry.link || "https://vividpixelsstudio.pixieset.com");
       const name = escapeHtml(entry.name || "Vivid Pixels");
       const title = escapeHtml(entry.title || "Wedding story");
+      const description = escapeHtml(
+        entry.description ||
+          entry.notes ||
+          "A cinematic highlight from the celebration, shaped with emotion, atmosphere, and the key moments of the day.",
+      );
       const buttonText = escapeHtml(entry.button_text || (isVideo ? "Watch Video" : "View Gallery"));
 
       if (isVideo) {
         const embedUrl = escapeHtml(getVideoEmbedUrl(entry.link || ""));
 
         if (embedUrl) {
+          const isReversed = videoIndex % 2 === 1;
+          videoIndex += 1;
+
           return `
-            <article class="portfolio-card portfolio-video portfolio-embed" data-gallery-type="${category}">
+            <article class="portfolio-card portfolio-video portfolio-embed${isReversed ? " is-reversed" : ""}" data-gallery-type="${category}">
               <div class="video-frame">
                 <iframe
                   src="${embedUrl}"
@@ -340,6 +350,7 @@ function renderPortfolioCards(entries) {
                 <span class="portfolio-type">${formatPortfolioType(category)}</span>
                 <p>${name}</p>
                 <h3>${title}</h3>
+                <small>${description}</small>
               </div>
             </article>
           `;
