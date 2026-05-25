@@ -14,6 +14,13 @@ const menuToggle = document.querySelector(".menu-toggle");
 const mobileMenu = document.querySelector("#mobileMenu");
 const galleryFilterButtons = document.querySelectorAll("[data-gallery-filter]");
 const portfolioGrid = document.querySelector("#galleryGrid");
+const previewGallery = document.querySelector("#previewGallery");
+const previewBack = document.querySelector("#previewBack");
+const previewCategory = document.querySelector("#previewCategory");
+const previewName = document.querySelector("#previewName");
+const previewDescription = document.querySelector("#previewDescription");
+const previewFullLink = document.querySelector("#previewFullLink");
+const previewPhotoGrid = document.querySelector("#previewPhotoGrid");
 
 const gallerySheetUrl =
   "https://docs.google.com/spreadsheets/d/1kKx2ZRvjnNcYvTL9Tu3R9yrae7F5WcMi/gviz/tq?tqx=out:csv&sheet=Gallery";
@@ -263,6 +270,16 @@ function getCoverImage(entry, index) {
   return coverImage;
 }
 
+function getPreviewImages(entry) {
+  const rawPreviewImages = entry.preview_images || entry.preview_image || "";
+
+  return rawPreviewImages
+    .split(/\s+/)
+    .map((url) => url.trim())
+    .filter(Boolean)
+    .filter((url) => /^https?:\/\//i.test(url));
+}
+
 function escapeHtml(value) {
   return String(value)
     .replaceAll("&", "&amp;")
@@ -270,6 +287,45 @@ function escapeHtml(value) {
     .replaceAll(">", "&gt;")
     .replaceAll('"', "&quot;")
     .replaceAll("'", "&#039;");
+}
+
+function showPreviewGallery(entry, index) {
+  if (
+    !previewGallery ||
+    !previewCategory ||
+    !previewName ||
+    !previewDescription ||
+    !previewFullLink ||
+    !previewPhotoGrid
+  ) {
+    return;
+  }
+
+  const rawCategory = (entry.category || "wedding").toLowerCase();
+  const category = rawCategory === "details" ? "portrait" : rawCategory;
+  const previewImages = getPreviewImages(entry);
+  const fallbackImage = fallbackPortfolioImages[index % fallbackPortfolioImages.length];
+  const displayImages = previewImages.length ? previewImages : [getCoverImage(entry, index), fallbackImage];
+  const link = entry.link || "https://vividpixelsstudio.pixieset.com";
+
+  previewCategory.textContent = formatPortfolioType(category);
+  previewName.textContent = entry.name || "Vivid Pixels";
+  previewDescription.textContent =
+    entry.description || entry.title || "A selected preview from the Vivid Pixels archive.";
+  previewFullLink.href = link;
+  previewFullLink.textContent = entry.button_text || "View Full Gallery";
+  previewPhotoGrid.innerHTML = displayImages
+    .map(
+      (image, photoIndex) => `
+        <figure class="${photoIndex % 7 === 0 ? "is-large" : ""}">
+          <img src="${escapeHtml(image)}" alt="${escapeHtml(entry.name || "Vivid Pixels")} preview ${photoIndex + 1}" loading="lazy" />
+        </figure>
+      `,
+    )
+    .join("");
+
+  previewGallery.hidden = false;
+  previewGallery.scrollIntoView({ behavior: "smooth", block: "start" });
 }
 
 function getVideoEmbedUrl(link) {
@@ -358,7 +414,7 @@ function renderPortfolioCards(entries) {
 
       return `
         <article class="portfolio-card${isVideo ? " portfolio-video" : ""}" data-gallery-type="${category}">
-          <a href="${link}">
+          <button class="portfolio-open" type="button" data-gallery-index="${index}">
             <img src="${image}" alt="${name} gallery preview" onerror="this.src='${fallbackImage}'" />
             ${isVideo ? '<span class="play-badge" aria-hidden="true">▶</span>' : ""}
             <span class="portfolio-type">${formatPortfolioType(category)}</span>
@@ -367,11 +423,18 @@ function renderPortfolioCards(entries) {
               <h3>${title}</h3>
               <span>${buttonText}</span>
             </div>
-          </a>
+          </button>
         </article>
       `;
     })
     .join("");
+
+  portfolioGrid.querySelectorAll("[data-gallery-index]").forEach((button) => {
+    button.addEventListener("click", () => {
+      const entry = entries[Number(button.dataset.galleryIndex)];
+      if (entry) showPreviewGallery(entry, Number(button.dataset.galleryIndex));
+    });
+  });
 }
 
 function applyGalleryFilter(filter) {
@@ -391,7 +454,17 @@ galleryFilterButtons.forEach((button) => {
     });
 
     applyGalleryFilter(filter);
+    if (previewGallery) {
+      previewGallery.hidden = true;
+    }
   });
+});
+
+previewBack?.addEventListener("click", () => {
+  if (previewGallery) {
+    previewGallery.hidden = true;
+  }
+  portfolioGrid?.scrollIntoView({ behavior: "smooth", block: "start" });
 });
 
 async function loadGallerySheet() {

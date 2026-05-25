@@ -892,13 +892,20 @@ textarea:focus {
   display: none;
 }
 
-.portfolio-card a {
+.portfolio-card a,
+.portfolio-open {
   position: relative;
   height: 100%;
   min-height: 430px;
   display: block;
+  width: 100%;
+  border: 0;
+  padding: 0;
   color: #fffaf2;
+  font: inherit;
+  text-align: left;
   text-decoration: none;
+  cursor: pointer;
 }
 
 .portfolio-card img {
@@ -909,7 +916,8 @@ textarea:focus {
   transition: transform 700ms ease, filter 700ms ease;
 }
 
-.portfolio-card a::after {
+.portfolio-card a::after,
+.portfolio-open::after {
   content: "";
   position: absolute;
   inset: 0;
@@ -926,6 +934,84 @@ textarea:focus {
 .play-badge {
   position: absolute;
   z-index: 1;
+}
+
+.preview-gallery {
+  margin-top: 64px;
+  padding-top: 54px;
+  border-top: 1px solid var(--line);
+}
+
+.preview-gallery[hidden] {
+  display: none;
+}
+
+.preview-gallery-heading {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: 28px;
+  align-items: end;
+  margin-bottom: 28px;
+}
+
+.preview-back {
+  margin-bottom: 22px;
+  border: 0;
+  padding: 0;
+  background: transparent;
+  color: var(--orange);
+  font: inherit;
+  font-size: 13px;
+  font-weight: 900;
+  cursor: pointer;
+}
+
+.preview-back::before {
+  content: "←";
+  margin-right: 8px;
+}
+
+.preview-gallery-heading h2 {
+  margin-bottom: 14px;
+}
+
+.preview-gallery-heading p:last-child {
+  max-width: 680px;
+  margin-bottom: 0;
+  color: var(--silver);
+  font-size: 17px;
+  line-height: 1.75;
+}
+
+.preview-photo-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  grid-auto-flow: dense;
+  gap: 12px;
+}
+
+.preview-photo-grid figure {
+  min-height: 310px;
+  margin: 0;
+  overflow: hidden;
+  border-radius: 18px;
+  background: var(--panel-2);
+}
+
+.preview-photo-grid figure.is-large {
+  grid-column: span 2;
+  grid-row: span 2;
+}
+
+.preview-photo-grid img {
+  height: 100%;
+  object-fit: cover;
+  transition: transform 700ms ease, filter 700ms ease;
+}
+
+.preview-photo-grid figure:hover img {
+  transform: scale(1.04);
+  filter: saturate(1.08);
 }
 
 .portfolio-type {
@@ -1161,6 +1247,21 @@ textarea:focus {
 
   .portfolio-grid {
     grid-template-columns: 1fr;
+  }
+
+  .preview-gallery-heading {
+    grid-template-columns: 1fr;
+  }
+
+  .preview-photo-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .preview-photo-grid figure,
+  .preview-photo-grid figure.is-large {
+    grid-column: auto;
+    grid-row: auto;
+    min-height: 240px;
   }
 
   .portfolio-video,
