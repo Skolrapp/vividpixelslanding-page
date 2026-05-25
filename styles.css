@@ -938,6 +938,49 @@ textarea:focus {
   grid-column: span 2;
 }
 
+.portfolio-embed {
+  min-height: 0;
+  padding: 14px;
+}
+
+.portfolio-embed .video-frame {
+  position: relative;
+  overflow: hidden;
+  border-radius: 18px;
+  background: #111111;
+  aspect-ratio: 16 / 9;
+}
+
+.portfolio-embed iframe {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  border: 0;
+}
+
+.portfolio-embed .video-card-copy {
+  position: static;
+  padding: 18px 6px 4px;
+}
+
+.portfolio-embed .portfolio-type {
+  position: static;
+  display: inline-flex;
+  margin-bottom: 14px;
+  background: rgba(216, 173, 98, 0.18);
+}
+
+.portfolio-embed p {
+  color: var(--orange);
+}
+
+.portfolio-embed h3 {
+  margin-bottom: 0;
+  color: var(--white);
+  text-shadow: none;
+}
+
 .play-badge {
   top: 50%;
   left: 50%;

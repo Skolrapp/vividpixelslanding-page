@@ -273,6 +273,37 @@ function escapeHtml(value) {
     .replaceAll("'", "&#039;");
 }
 
+function getVideoEmbedUrl(link) {
+  try {
+    const url = new URL(link);
+
+    if (url.hostname.includes("youtu.be")) {
+      const videoId = url.pathname.replace("/", "");
+      return videoId ? `https://www.youtube.com/embed/${videoId}` : "";
+    }
+
+    if (url.hostname.includes("youtube.com")) {
+      const videoId = url.searchParams.get("v");
+      if (videoId) return `https://www.youtube.com/embed/${videoId}`;
+
+      const shortsMatch = url.pathname.match(/\/shorts\/([^/?]+)/);
+      if (shortsMatch?.[1]) return `https://www.youtube.com/embed/${shortsMatch[1]}`;
+
+      const embedMatch = url.pathname.match(/\/embed\/([^/?]+)/);
+      if (embedMatch?.[1]) return `https://www.youtube.com/embed/${embedMatch[1]}`;
+    }
+
+    if (url.hostname.includes("vimeo.com")) {
+      const videoId = url.pathname.split("/").filter(Boolean).pop();
+      return videoId ? `https://player.vimeo.com/video/${videoId}` : "";
+    }
+  } catch (error) {
+    return "";
+  }
+
+  return "";
+}
+
 function renderPortfolioCards(entries) {
   if (!portfolioGrid || !entries.length) return;
 
@@ -289,6 +320,31 @@ function renderPortfolioCards(entries) {
       const name = escapeHtml(entry.name || "Vivid Pixels");
       const title = escapeHtml(entry.title || "Wedding story");
       const buttonText = escapeHtml(entry.button_text || (isVideo ? "Watch Video" : "View Gallery"));
+
+      if (isVideo) {
+        const embedUrl = escapeHtml(getVideoEmbedUrl(entry.link || ""));
+
+        if (embedUrl) {
+          return `
+            <article class="portfolio-card portfolio-video portfolio-embed" data-gallery-type="${category}">
+              <div class="video-frame">
+                <iframe
+                  src="${embedUrl}"
+                  title="${title}"
+                  loading="lazy"
+                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                  allowfullscreen
+                ></iframe>
+              </div>
+              <div class="video-card-copy">
+                <span class="portfolio-type">${formatPortfolioType(category)}</span>
+                <p>${name}</p>
+                <h3>${title}</h3>
+              </div>
+            </article>
+          `;
+        }
+      }
 
       return `
         <article class="portfolio-card${isVideo ? " portfolio-video" : ""}" data-gallery-type="${category}">
