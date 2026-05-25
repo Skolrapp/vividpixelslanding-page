@@ -38,21 +38,23 @@
     </header>
 
     <main>
-      <section class="gallery-hero" aria-labelledby="gallery-page-title">
-        <div>
+      <section class="film-hero" aria-labelledby="gallery-page-title">
+        <video class="film-hero-video" autoplay muted loop playsinline poster="assets/gallery/hero.jpg" aria-hidden="true">
+          <source src="assets/video/hero-film.mp4" type="video/mp4" />
+        </video>
+        <div class="film-hero-overlay" aria-hidden="true"></div>
+        <div class="film-hero-content">
           <p class="eyebrow">Wedding films</p>
-          <h1 id="gallery-page-title">Films, galleries, and stories from real celebrations.</h1>
-          <p>
-            A quiet collection of wedding films, full galleries, and selected
-            moments from the Vivid Pixels archive.
-          </p>
+          <h1 id="gallery-page-title">Cinematic stories from real celebrations.</h1>
+          <p>Wedding films, full galleries, and selected moments from the Vivid Pixels archive.</p>
           <div class="hero-actions">
-            <a class="button button-primary" href="#galleryGrid">Browse Work</a>
+            <a class="button button-primary" href="#galleryGrid">Browse Films</a>
           </div>
         </div>
-        <div class="gallery-hero-media" aria-hidden="true">
-          <img src="assets/gallery/wedding-2.jpg" alt="" />
-          <img src="assets/gallery/wedding-5.jpg" alt="" />
+        <div class="film-hero-meta" aria-hidden="true">
+          <span></span>
+          <small>Featured films</small>
+          <span></span>
         </div>
       </section>
 
