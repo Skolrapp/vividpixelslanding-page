@@ -323,7 +323,6 @@ function renderPortfolioCards(entries) {
       const title = escapeHtml(entry.title || "Wedding story");
       const description = escapeHtml(
         entry.description ||
-          entry.notes ||
           "A cinematic highlight from the celebration, shaped with emotion, atmosphere, and the key moments of the day.",
       );
       const buttonText = escapeHtml(entry.button_text || (isVideo ? "Watch Video" : "View Gallery"));
