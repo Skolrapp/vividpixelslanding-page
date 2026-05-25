@@ -13,7 +13,19 @@ const siteHeader = document.querySelector(".site-header");
 const menuToggle = document.querySelector(".menu-toggle");
 const mobileMenu = document.querySelector("#mobileMenu");
 const galleryFilterButtons = document.querySelectorAll("[data-gallery-filter]");
-const portfolioCards = document.querySelectorAll("[data-gallery-type]");
+const portfolioGrid = document.querySelector("#galleryGrid");
+const gallerySyncNote = document.querySelector("#gallerySyncNote");
+
+const gallerySheetUrl =
+  "https://docs.google.com/spreadsheets/d/1kKx2ZRvjnNcYvTL9Tu3R9yrae7F5WcMi/gviz/tq?tqx=out:csv&sheet=Gallery";
+const fallbackPortfolioImages = [
+  "assets/gallery/wedding-1.jpg",
+  "assets/gallery/wedding-3.jpg",
+  "assets/gallery/wedding-4.jpg",
+  "assets/gallery/wedding-6.jpg",
+  "assets/gallery/hero.jpg",
+  "assets/gallery/wedding-5.jpg",
+];
 
 const galleryPhotos = [
   {
@@ -176,6 +188,133 @@ reviewForm?.addEventListener("submit", (event) => {
   reviewForm.reset();
 });
 
+function parseCsv(csvText) {
+  const rows = [];
+  let row = [];
+  let cell = "";
+  let isQuoted = false;
+
+  for (let index = 0; index < csvText.length; index += 1) {
+    const character = csvText[index];
+    const nextCharacter = csvText[index + 1];
+
+    if (character === '"' && isQuoted && nextCharacter === '"') {
+      cell += '"';
+      index += 1;
+    } else if (character === '"') {
+      isQuoted = !isQuoted;
+    } else if (character === "," && !isQuoted) {
+      row.push(cell);
+      cell = "";
+    } else if ((character === "\n" || character === "\r") && !isQuoted) {
+      if (character === "\r" && nextCharacter === "\n") {
+        index += 1;
+      }
+      row.push(cell);
+      rows.push(row);
+      row = [];
+      cell = "";
+    } else {
+      cell += character;
+    }
+  }
+
+  if (cell || row.length) {
+    row.push(cell);
+    rows.push(row);
+  }
+
+  return rows.filter((csvRow) => csvRow.some((value) => value.trim()));
+}
+
+function getGalleryRows(csvText) {
+  const rows = parseCsv(csvText);
+  const headerIndex = rows.findIndex((row) => row[0]?.trim().toLowerCase() === "status");
+
+  if (headerIndex === -1) return [];
+
+  const headers = rows[headerIndex].map((header) => header.trim());
+
+  return rows.slice(headerIndex + 1).map((row) =>
+    headers.reduce((entry, header, index) => {
+      entry[header] = row[index]?.trim() || "";
+      return entry;
+    }, {}),
+  );
+}
+
+function formatPortfolioType(category) {
+  const labels = {
+    wedding: "Wedding Gallery",
+    engagement: "Engagement",
+    details: "Details & Decor",
+    video: "Wedding Film",
+  };
+
+  return labels[category] || "Gallery";
+}
+
+function getCoverImage(entry, index) {
+  const coverImage = entry.cover_image || "";
+
+  if (!coverImage || coverImage.includes("example.com")) {
+    return fallbackPortfolioImages[index % fallbackPortfolioImages.length];
+  }
+
+  return coverImage;
+}
+
+function escapeHtml(value) {
+  return String(value)
+    .replaceAll("&", "&amp;")
+    .replaceAll("<", "&lt;")
+    .replaceAll(">", "&gt;")
+    .replaceAll('"', "&quot;")
+    .replaceAll("'", "&#039;");
+}
+
+function renderPortfolioCards(entries) {
+  if (!portfolioGrid || !entries.length) return;
+
+  portfolioGrid.innerHTML = entries
+    .map((entry, index) => {
+      const rawCategory = (entry.category || "wedding").toLowerCase();
+      const category = ["wedding", "engagement", "details", "video"].includes(rawCategory)
+        ? rawCategory
+        : "wedding";
+      const isVideo = category === "video";
+      const image = escapeHtml(getCoverImage(entry, index));
+      const fallbackImage = escapeHtml(fallbackPortfolioImages[index % fallbackPortfolioImages.length]);
+      const link = escapeHtml(entry.link || "https://vividpixelsstudio.pixieset.com");
+      const name = escapeHtml(entry.name || "Vivid Pixels");
+      const title = escapeHtml(entry.title || "Wedding story");
+      const buttonText = escapeHtml(entry.button_text || (isVideo ? "Watch Video" : "View Gallery"));
+
+      return `
+        <article class="portfolio-card${isVideo ? " portfolio-video" : ""}" data-gallery-type="${category}">
+          <a href="${link}" target="_blank" rel="noopener noreferrer">
+            <img src="${image}" alt="${name} gallery preview" onerror="this.src='${fallbackImage}'" />
+            ${isVideo ? '<span class="play-badge" aria-hidden="true">▶</span>' : ""}
+            <span class="portfolio-type">${formatPortfolioType(category)}</span>
+            <div>
+              <p>${name}</p>
+              <h3>${title}</h3>
+              <span>${buttonText}</span>
+            </div>
+          </a>
+        </article>
+      `;
+    })
+    .join("");
+}
+
+function applyGalleryFilter(filter) {
+  document.querySelectorAll("[data-gallery-type]").forEach((card) => {
+    const type = card.dataset.galleryType;
+    card.classList.toggle("is-hidden", filter !== "all" && type !== filter);
+  });
+}
+
 galleryFilterButtons.forEach((button) => {
   button.addEventListener("click", () => {
     const filter = button.dataset.galleryFilter || "all";
@@ -184,9 +323,43 @@ galleryFilterButtons.forEach((button) => {
       filterButton.classList.toggle("is-active", filterButton === button);
     });
 
-    portfolioCards.forEach((card) => {
-      const type = card.dataset.galleryType;
-      card.classList.toggle("is-hidden", filter !== "all" && type !== filter);
-    });
+    applyGalleryFilter(filter);
   });
 });
+
+async function loadGallerySheet() {
+  if (!portfolioGrid) return;
+
+  try {
+    const response = await fetch(gallerySheetUrl);
+
+    if (!response.ok) {
+      throw new Error("Gallery sheet is not reachable.");
+    }
+
+    const csvText = await response.text();
+    const entries = getGalleryRows(csvText).filter(
+      (entry) => entry.status?.toLowerCase() === "published",
+    );
+
+    if (!entries.length) {
+      throw new Error("No published gallery rows found.");
+    }
+
+    renderPortfolioCards(entries);
+    applyGalleryFilter(
+      document.querySelector("[data-gallery-filter].is-active")?.dataset.galleryFilter || "all",
+    );
+
+    if (gallerySyncNote) {
+      gallerySyncNote.textContent = "Updated from the Vivid Pixels Gallery Manager sheet.";
+    }
+  } catch (error) {
+    if (gallerySyncNote) {
+      gallerySyncNote.textContent = "Showing sample gallery cards. Publish or share the Google Sheet CSV to load live updates.";
+    }
+    console.warn(error);
+  }
+}
+
+loadGallerySheet();
