@@ -1,0 +1,70 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Vivid Pixels | Gallery Story</title>
+    <meta
+      name="description"
+      content="A Vivid Pixels gallery story with selected wedding, engagement, and portrait previews."
+    />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <header class="site-header">
+      <a class="brand" href="index.html" aria-label="Vivid Pixels home">
+        <img src="assets/vivid-pixels-logo.png" alt="Vivid Pixels" />
+      </a>
+      <nav aria-label="Main navigation">
+        <a href="index.html#packages">Preview Packages</a>
+        <a href="https://quotemini.vividpixels.co.tz" target="_blank" rel="noopener noreferrer">Mini Event Quote</a>
+        <a href="gallery.html" aria-current="page">Galleries</a>
+        <a href="index.html#reviews">Testimonials</a>
+        <a href="index.html#contact">Contact</a>
+      </nav>
+      <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="mobileMenu">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+      <a class="header-cta" href="index.html#contact">Book a Date</a>
+      <div class="mobile-menu" id="mobileMenu">
+        <a href="index.html#packages">Preview Packages</a>
+        <a href="https://quotemini.vividpixels.co.tz" target="_blank" rel="noopener noreferrer">Mini Event Quote</a>
+        <a href="gallery.html">Galleries</a>
+        <a href="index.html#reviews">Testimonials</a>
+        <a href="index.html#contact">Contact</a>
+      </div>
+    </header>
+
+    <main class="gallery-story-page" id="galleryStoryPage">
+      <section class="gallery-story-hero" id="detailHero">
+        <div class="gallery-story-image">
+          <img id="detailCover" src="assets/gallery/hero.jpg" alt="" />
+        </div>
+        <div class="gallery-story-copy">
+          <a class="story-back" href="gallery.html">Back to galleries</a>
+          <p class="eyebrow" id="detailCategory">Gallery Story</p>
+          <h1 id="detailName">Loading gallery...</h1>
+          <p id="detailDescription">Preparing selected moments from the Vivid Pixels archive.</p>
+          <a class="button button-primary" id="detailFullLink" href="https://vividpixelsstudio.pixieset.com">View Full Gallery</a>
+        </div>
+      </section>
+
+      <section class="section gallery-story-section" aria-labelledby="detailTitle">
+        <div class="section-heading">
+          <p class="eyebrow">Selected moments</p>
+          <h2 id="detailTitle">Gallery preview.</h2>
+        </div>
+        <div class="story-photo-grid" id="detailPhotoGrid"></div>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <span>Vivid Pixels</span>
+      <span>Selected gallery stories and complete client albums</span>
+    </footer>
+
+    <script src="script.js"></script>
+  </body>
+</html>

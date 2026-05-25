@@ -14,13 +14,14 @@ const menuToggle = document.querySelector(".menu-toggle");
 const mobileMenu = document.querySelector("#mobileMenu");
 const galleryFilterButtons = document.querySelectorAll("[data-gallery-filter]");
 const portfolioGrid = document.querySelector("#galleryGrid");
-const previewGallery = document.querySelector("#previewGallery");
-const previewBack = document.querySelector("#previewBack");
-const previewCategory = document.querySelector("#previewCategory");
-const previewName = document.querySelector("#previewName");
-const previewDescription = document.querySelector("#previewDescription");
-const previewFullLink = document.querySelector("#previewFullLink");
-const previewPhotoGrid = document.querySelector("#previewPhotoGrid");
+const detailHero = document.querySelector("#detailHero");
+const detailCover = document.querySelector("#detailCover");
+const detailCategory = document.querySelector("#detailCategory");
+const detailName = document.querySelector("#detailName");
+const detailDescription = document.querySelector("#detailDescription");
+const detailFullLink = document.querySelector("#detailFullLink");
+const detailTitle = document.querySelector("#detailTitle");
+const detailPhotoGrid = document.querySelector("#detailPhotoGrid");
 
 const gallerySheetUrl =
   "https://docs.google.com/spreadsheets/d/1kKx2ZRvjnNcYvTL9Tu3R9yrae7F5WcMi/gviz/tq?tqx=out:csv&sheet=Gallery";
@@ -280,6 +281,15 @@ function getPreviewImages(entry) {
     .filter((url) => /^https?:\/\//i.test(url));
 }
 
+function getGallerySlug(entry) {
+  return (entry.slug || entry.name || entry.title || "gallery")
+    .toLowerCase()
+    .trim()
+    .replace(/&/g, "and")
+    .replace(/[^a-z0-9]+/g, "-")
+    .replace(/^-+|-+$/g, "");
+}
+
 function escapeHtml(value) {
   return String(value)
     .replaceAll("&", "&amp;")
@@ -289,32 +299,51 @@ function escapeHtml(value) {
     .replaceAll("'", "&#039;");
 }
 
-function showPreviewGallery(entry, index) {
+function renderDetailPage(entries) {
   if (
-    !previewGallery ||
-    !previewCategory ||
-    !previewName ||
-    !previewDescription ||
-    !previewFullLink ||
-    !previewPhotoGrid
+    !detailHero ||
+    !detailCover ||
+    !detailCategory ||
+    !detailName ||
+    !detailDescription ||
+    !detailFullLink ||
+    !detailTitle ||
+    !detailPhotoGrid
   ) {
     return;
   }
 
+  const requestedSlug = new URLSearchParams(window.location.search).get("id") || "";
+  const entry = entries.find((galleryEntry) => getGallerySlug(galleryEntry) === requestedSlug);
+
+  if (!entry) {
+    detailName.textContent = "Gallery not found";
+    detailDescription.textContent = "Return to the galleries page and choose a published story.";
+    detailTitle.textContent = "No preview available.";
+    detailPhotoGrid.innerHTML = "";
+    return;
+  }
+
+  const entryIndex = entries.indexOf(entry);
   const rawCategory = (entry.category || "wedding").toLowerCase();
   const category = rawCategory === "details" ? "portrait" : rawCategory;
   const previewImages = getPreviewImages(entry);
-  const fallbackImage = fallbackPortfolioImages[index % fallbackPortfolioImages.length];
-  const displayImages = previewImages.length ? previewImages : [getCoverImage(entry, index), fallbackImage];
+  const fallbackImage = fallbackPortfolioImages[entryIndex % fallbackPortfolioImages.length];
+  const coverImage = getCoverImage(entry, entryIndex);
+  const displayImages = previewImages.length ? previewImages : [coverImage, fallbackImage];
   const link = entry.link || "https://vividpixelsstudio.pixieset.com";
 
-  previewCategory.textContent = formatPortfolioType(category);
-  previewName.textContent = entry.name || "Vivid Pixels";
-  previewDescription.textContent =
+  document.title = `${entry.name || "Gallery Story"} | Vivid Pixels`;
+  detailCover.src = coverImage;
+  detailCover.alt = `${entry.name || "Vivid Pixels"} gallery cover`;
+  detailCategory.textContent = formatPortfolioType(category);
+  detailName.textContent = entry.name || "Vivid Pixels";
+  detailDescription.textContent =
     entry.description || entry.title || "A selected preview from the Vivid Pixels archive.";
-  previewFullLink.href = link;
-  previewFullLink.textContent = entry.button_text || "View Full Gallery";
-  previewPhotoGrid.innerHTML = displayImages
+  detailFullLink.href = link;
+  detailFullLink.textContent = entry.button_text || "View Full Gallery";
+  detailTitle.textContent = entry.title || "Gallery preview.";
+  detailPhotoGrid.innerHTML = displayImages
     .map(
       (image, photoIndex) => `
         <figure class="${photoIndex % 7 === 0 ? "is-large" : ""}">
@@ -323,9 +352,6 @@ function showPreviewGallery(entry, index) {
       `,
     )
     .join("");
-
-  previewGallery.hidden = false;
-  previewGallery.scrollIntoView({ behavior: "smooth", block: "start" });
 }
 
 function getVideoEmbedUrl(link) {
@@ -375,6 +401,7 @@ function renderPortfolioCards(entries) {
       const image = escapeHtml(getCoverImage(entry, index));
       const fallbackImage = escapeHtml(fallbackPortfolioImages[index % fallbackPortfolioImages.length]);
       const link = escapeHtml(entry.link || "https://vividpixelsstudio.pixieset.com");
+      const detailUrl = escapeHtml(`gallery-detail.html?id=${getGallerySlug(entry)}`);
       const name = escapeHtml(entry.name || "Vivid Pixels");
       const title = escapeHtml(entry.title || "Wedding story");
       const description = escapeHtml(
@@ -414,7 +441,7 @@ function renderPortfolioCards(entries) {
 
       return `
         <article class="portfolio-card${isVideo ? " portfolio-video" : ""}" data-gallery-type="${category}">
-          <button class="portfolio-open" type="button" data-gallery-index="${index}">
+          <a class="portfolio-open" href="${detailUrl}">
             <img src="${image}" alt="${name} gallery preview" onerror="this.src='${fallbackImage}'" />
             ${isVideo ? '<span class="play-badge" aria-hidden="true">▶</span>' : ""}
             <span class="portfolio-type">${formatPortfolioType(category)}</span>
@@ -423,18 +450,11 @@ function renderPortfolioCards(entries) {
               <h3>${title}</h3>
               <span>${buttonText}</span>
             </div>
-          </button>
+          </a>
         </article>
       `;
     })
     .join("");
-
-  portfolioGrid.querySelectorAll("[data-gallery-index]").forEach((button) => {
-    button.addEventListener("click", () => {
-      const entry = entries[Number(button.dataset.galleryIndex)];
-      if (entry) showPreviewGallery(entry, Number(button.dataset.galleryIndex));
-    });
-  });
 }
 
 function applyGalleryFilter(filter) {
@@ -454,21 +474,11 @@ galleryFilterButtons.forEach((button) => {
     });
 
     applyGalleryFilter(filter);
-    if (previewGallery) {
-      previewGallery.hidden = true;
-    }
   });
 });
 
-previewBack?.addEventListener("click", () => {
-  if (previewGallery) {
-    previewGallery.hidden = true;
-  }
-  portfolioGrid?.scrollIntoView({ behavior: "smooth", block: "start" });
-});
-
 async function loadGallerySheet() {
-  if (!portfolioGrid) return;
+  if (!portfolioGrid && !detailHero) return;
 
   try {
     const response = await fetch(gallerySheetUrl);
@@ -486,10 +496,16 @@ async function loadGallerySheet() {
       throw new Error("No published gallery rows found.");
     }
 
-    renderPortfolioCards(entries);
-    applyGalleryFilter(
-      document.querySelector("[data-gallery-filter].is-active")?.dataset.galleryFilter || "all",
-    );
+    if (portfolioGrid) {
+      renderPortfolioCards(entries);
+      applyGalleryFilter(
+        document.querySelector("[data-gallery-filter].is-active")?.dataset.galleryFilter || "all",
+      );
+    }
+
+    if (detailHero) {
+      renderDetailPage(entries);
+    }
 
   } catch (error) {
     console.warn(error);
