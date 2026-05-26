@@ -950,6 +950,9 @@ textarea:focus {
   min-height: 650px;
   overflow: hidden;
   border-radius: 28px;
+  background:
+    linear-gradient(135deg, rgba(238, 230, 220, 0.94), rgba(255, 250, 242, 0.82)),
+    var(--panel-2);
   box-shadow: var(--shadow);
 }
 
@@ -957,6 +960,17 @@ textarea:focus {
   height: 100%;
   min-height: 650px;
   object-fit: cover;
+  opacity: 1;
+  transition: opacity 240ms ease;
+}
+
+.gallery-story-page.is-loading .gallery-story-image img {
+  opacity: 0;
+}
+
+.gallery-story-page.is-loading .gallery-story-copy .button,
+.gallery-story-page.is-loading .gallery-story-section {
+  visibility: hidden;
 }
 
 .gallery-story-copy {

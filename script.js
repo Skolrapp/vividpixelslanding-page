@@ -22,6 +22,7 @@ const detailDescription = document.querySelector("#detailDescription");
 const detailFullLink = document.querySelector("#detailFullLink");
 const detailTitle = document.querySelector("#detailTitle");
 const detailPhotoGrid = document.querySelector("#detailPhotoGrid");
+const galleryStoryPage = document.querySelector("#galleryStoryPage");
 
 const gallerySheetUrl =
   "https://docs.google.com/spreadsheets/d/1kKx2ZRvjnNcYvTL9Tu3R9yrae7F5WcMi/gviz/tq?tqx=out:csv&sheet=Gallery";
@@ -314,14 +315,27 @@ function renderDetailPage(entries) {
   }
 
   const requestedSlug = new URLSearchParams(window.location.search).get("id") || "";
-  const entry = entries.find((galleryEntry) => getGallerySlug(galleryEntry) === requestedSlug);
+  const photoEntries = entries.filter((galleryEntry) => {
+    const rawCategory = (galleryEntry.category || "wedding").toLowerCase();
+    const category = rawCategory === "details" ? "portrait" : rawCategory;
+    return category !== "video";
+  });
+  const entry =
+    entries.find((galleryEntry) => getGallerySlug(galleryEntry) === requestedSlug) ||
+    photoEntries[0];
 
   if (!entry) {
     detailName.textContent = "Gallery not found";
     detailDescription.textContent = "Return to the galleries page and choose a published story.";
     detailTitle.textContent = "No preview available.";
     detailPhotoGrid.innerHTML = "";
+    galleryStoryPage?.classList.remove("is-loading");
     return;
+  }
+
+  const resolvedSlug = getGallerySlug(entry);
+  if (requestedSlug && requestedSlug !== resolvedSlug) {
+    window.history.replaceState(null, "", `${window.location.pathname}?id=${resolvedSlug}`);
   }
 
   const entryIndex = entries.indexOf(entry);
@@ -352,6 +366,7 @@ function renderDetailPage(entries) {
       `,
     )
     .join("");
+  galleryStoryPage?.classList.remove("is-loading");
 }
 
 function getVideoEmbedUrl(link) {
