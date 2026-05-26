@@ -1286,10 +1286,63 @@ textarea:focus {
     display: grid;
   }
 
+  .hero {
+    min-height: 840px;
+  }
+
+  .hero-content {
+    padding: 82px clamp(30px, 6vw, 64px) 58px;
+  }
+
+  h1 {
+    max-width: 720px;
+    font-size: clamp(58px, 8vw, 86px);
+  }
+
+  h2 {
+    font-size: clamp(42px, 5.8vw, 58px);
+  }
+
+  .hero-proof {
+    max-width: 650px;
+  }
+
+  .hero-proof span {
+    min-width: min(46%, 240px);
+  }
+
+  .intro-strip {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
   .work-heading,
   .split-heading,
+  .gallery-panel,
+  .reviews-layout,
   .contact-band {
     grid-template-columns: 1fr;
+  }
+
+  .section {
+    padding-top: 78px;
+    padding-bottom: 78px;
+  }
+
+  .slide-stage,
+  .slide-stage img {
+    min-height: 560px;
+  }
+
+  .slide-thumbnails {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  .gallery-panel {
+    align-items: start;
+  }
+
+  .gallery-panel .button {
+    justify-self: start;
   }
 
   .gallery-filters {
@@ -1346,8 +1399,21 @@ textarea:focus {
 
   .service-grid,
   .process-grid,
-  .faq-grid {
+  .faq-grid,
+  .package-grid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .package-card {
+    min-height: auto;
+  }
+
+  .reviews-layout {
+    gap: 28px;
+  }
+
+  .review-form {
+    max-width: 620px;
   }
 }
 
