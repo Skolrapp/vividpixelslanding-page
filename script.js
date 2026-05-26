@@ -424,6 +424,12 @@ function getVideoEmbedUrl(link) {
   return "";
 }
 
+function getPortfolioCardTitle(entry, category) {
+  const title = (entry.card_title || entry.title || "").trim();
+  if (!title || title.length > 54) return formatPortfolioType(category);
+  return title;
+}
+
 function renderPortfolioCards(entries) {
   if (!portfolioGrid || !entries.length) return;
 
@@ -443,6 +449,7 @@ function renderPortfolioCards(entries) {
       const detailUrl = escapeHtml(`gallery-detail.html?id=${getGallerySlug(entry)}`);
       const name = escapeHtml(entry.name || "Vivid Pixels");
       const title = escapeHtml(entry.title || "Wedding story");
+      const cardTitle = escapeHtml(getPortfolioCardTitle(entry, category));
       const description = escapeHtml(
         entry.description ||
           "A cinematic highlight from the celebration, shaped with emotion, atmosphere, and the key moments of the day.",
@@ -486,7 +493,7 @@ function renderPortfolioCards(entries) {
             <span class="portfolio-type">${formatPortfolioType(category)}</span>
             <div>
               <p>${name}</p>
-              <h3>${title}</h3>
+              <h3>${cardTitle}</h3>
               <span>${buttonText}</span>
             </div>
           </a>

@@ -1116,6 +1116,10 @@ textarea:focus {
   margin-bottom: 16px;
   color: #fffaf2;
   font-size: 31px;
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
   text-shadow: 0 2px 18px rgba(0, 0, 0, 0.28);
 }
 
