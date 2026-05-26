@@ -1023,6 +1023,7 @@ textarea:focus {
 }
 
 .story-photo-grid figure {
+  aspect-ratio: 3 / 4;
   break-inside: avoid;
   margin: 0;
   margin-bottom: 6px;
@@ -1031,8 +1032,35 @@ textarea:focus {
   background: var(--panel-2);
 }
 
+.story-photo-grid .story-tile-0,
+.story-photo-grid .story-tile-6 {
+  aspect-ratio: 4 / 5;
+}
+
+.story-photo-grid .story-tile-1,
+.story-photo-grid .story-tile-8 {
+  aspect-ratio: 16 / 10;
+}
+
+.story-photo-grid .story-tile-2,
+.story-photo-grid .story-tile-7,
+.story-photo-grid .story-tile-10 {
+  aspect-ratio: 2 / 3;
+}
+
+.story-photo-grid .story-tile-3,
+.story-photo-grid .story-tile-5,
+.story-photo-grid .story-tile-9 {
+  aspect-ratio: 5 / 3;
+}
+
+.story-photo-grid .story-tile-4,
+.story-photo-grid .story-tile-11 {
+  aspect-ratio: 3 / 5;
+}
+
 .story-photo-grid img {
-  height: auto;
+  height: 100%;
   object-fit: cover;
   transition: transform 700ms ease, filter 700ms ease;
 }
