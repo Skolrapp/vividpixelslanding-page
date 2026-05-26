@@ -34,6 +34,28 @@ const fallbackPortfolioImages = [
   "assets/gallery/hero.jpg",
   "assets/gallery/wedding-5.jpg",
 ];
+const cachedGalleryEntries = [
+  {
+    status: "published",
+    category: "wedding",
+    name: "Joe & Rhoda",
+    title: "Full-day wedding story",
+    cover_image: "https://res.cloudinary.com/deh8fegux/image/upload/f_auto,q_auto/IMGL3727-Edit_xpkjwz",
+    preview_image:
+      "https://res.cloudinary.com/deh8fegux/image/upload/q_auto/f_auto/v1779718499/IMGL3012_ps6kab.jpg https://res.cloudinary.com/deh8fegux/image/upload/q_auto/f_auto/v1779718499/IMGL3016_tt55gl.jpg https://res.cloudinary.com/deh8fegux/image/upload/q_auto/f_auto/v1779718659/IMGL3025_cp0pow.jpg https://res.cloudinary.com/deh8fegux/image/upload/q_auto/f_auto/v1779718663/IMGL3062-Edit_qcl6jn.jpg https://res.cloudinary.com/deh8fegux/image/upload/q_auto/f_auto/v1779707563/IMGL3727-Edit_xpkjwz.jpg https://res.cloudinary.com/deh8fegux/image/upload/q_auto/f_auto/v1779718660/IMGL3693-Edit_lk6puf.jpg https://res.cloudinary.com/deh8fegux/image/upload/q_auto/f_auto/v1779718660/IMGL3681-Edit_nsp7lf.jpg https://res.cloudinary.com/deh8fegux/image/upload/q_auto/f_auto/v1779718660/IMGL3709-Edit_om2bjl.jpg https://res.cloudinary.com/deh8fegux/image/upload/q_auto/f_auto/v1779718661/IMGL3724_tgrqhf.jpg https://res.cloudinary.com/deh8fegux/image/upload/q_auto/f_auto/v1779718662/IMGL3758-Edit_k27fah.jpg https://res.cloudinary.com/deh8fegux/image/upload/q_auto/f_auto/v1779718662/IMGL3770-Edit_iakhcr.jpg https://res.cloudinary.com/deh8fegux/image/upload/q_auto/f_auto/v1779718663/IMGL3793-Edit_gzleqi.jpg https://res.cloudinary.com/deh8fegux/image/upload/q_auto/f_auto/v1779718662/IMGL3271_s0ap3p.jpg https://res.cloudinary.com/deh8fegux/image/upload/q_auto/f_auto/v1779718662/IMGL3274_u85ljc.jpg https://res.cloudinary.com/deh8fegux/image/upload/q_auto/f_auto/v1779718660/IMGL3289_z5mtxt.jpg https://res.cloudinary.com/deh8fegux/image/upload/q_auto/f_auto/v1779718663/IMGL3331_rf4ke5.jpg https://res.cloudinary.com/deh8fegux/image/upload/q_auto/f_auto/v1779718664/IMGL4051_hco7wu.jpg https://res.cloudinary.com/deh8fegux/image/upload/q_auto/f_auto/v1779718664/IMGL4018_eguopu.jpg",
+    link: "https://vividpixelsstudio.pixieset.com/joeandrhoda/highlight/",
+    button_text: "View Gallery",
+  },
+  {
+    status: "published",
+    category: "video",
+    name: "Cinematic Highlights",
+    title: "JOE & RHODA",
+    cover_image: "https://res.cloudinary.com/deh8fegux/image/upload/f_auto,q_auto/IMGL3727-Edit_xpkjwz",
+    link: "https://youtu.be/fmiMx9wi8dI",
+    button_text: "Watch Video",
+  },
+];
 
 const galleryPhotos = [
   {
@@ -495,6 +517,18 @@ galleryFilterButtons.forEach((button) => {
 async function loadGallerySheet() {
   if (!portfolioGrid && !detailHero) return;
 
+  if (portfolioGrid) {
+    renderPortfolioCards(cachedGalleryEntries);
+    applyGalleryFilter(
+      document.querySelector("[data-gallery-filter].is-active")?.dataset.galleryFilter || "all",
+    );
+    portfolioGrid.classList.remove("is-loading");
+  }
+
+  if (detailHero) {
+    renderDetailPage(cachedGalleryEntries);
+  }
+
   try {
     const response = await fetch(gallerySheetUrl);
 
@@ -516,6 +550,7 @@ async function loadGallerySheet() {
       applyGalleryFilter(
         document.querySelector("[data-gallery-filter].is-active")?.dataset.galleryFilter || "all",
       );
+      portfolioGrid.classList.remove("is-loading");
     }
 
     if (detailHero) {
@@ -524,6 +559,8 @@ async function loadGallerySheet() {
 
   } catch (error) {
     console.warn(error);
+    portfolioGrid?.classList.remove("is-loading");
+    galleryStoryPage?.classList.remove("is-loading");
   }
 }
 

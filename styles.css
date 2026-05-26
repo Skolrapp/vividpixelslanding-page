@@ -879,6 +879,10 @@ textarea:focus {
   gap: 18px;
 }
 
+.portfolio-grid.is-loading {
+  min-height: 360px;
+}
+
 .portfolio-card {
   min-height: 430px;
   overflow: hidden;
