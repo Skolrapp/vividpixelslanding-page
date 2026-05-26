@@ -322,7 +322,7 @@ function escapeHtml(value) {
     .replaceAll("'", "&#039;");
 }
 
-function renderDetailPage(entries) {
+function renderDetailPage(entries, options = {}) {
   if (
     !detailHero ||
     !detailCover ||
@@ -336,17 +336,19 @@ function renderDetailPage(entries) {
     return;
   }
 
+  const { allowFallback = true, keepLoadingOnMissing = false } = options;
   const requestedSlug = new URLSearchParams(window.location.search).get("id") || "";
   const photoEntries = entries.filter((galleryEntry) => {
     const rawCategory = (galleryEntry.category || "wedding").toLowerCase();
     const category = rawCategory === "details" ? "portrait" : rawCategory;
     return category !== "video";
   });
-  const entry =
-    entries.find((galleryEntry) => getGallerySlug(galleryEntry) === requestedSlug) ||
-    photoEntries[0];
+  const matchedEntry = entries.find((galleryEntry) => getGallerySlug(galleryEntry) === requestedSlug);
+  const entry = matchedEntry || (allowFallback ? photoEntries[0] : null);
 
   if (!entry) {
+    if (keepLoadingOnMissing) return;
+
     detailName.textContent = "Gallery not found";
     detailDescription.textContent = "Return to the galleries page and choose a published story.";
     detailTitle.textContent = "No preview available.";
@@ -356,7 +358,7 @@ function renderDetailPage(entries) {
   }
 
   const resolvedSlug = getGallerySlug(entry);
-  if (requestedSlug && requestedSlug !== resolvedSlug) {
+  if (allowFallback && requestedSlug && requestedSlug !== resolvedSlug) {
     window.history.replaceState(null, "", `${window.location.pathname}?id=${resolvedSlug}`);
   }
 
@@ -526,7 +528,10 @@ async function loadGallerySheet() {
   }
 
   if (detailHero) {
-    renderDetailPage(cachedGalleryEntries);
+    renderDetailPage(cachedGalleryEntries, {
+      allowFallback: false,
+      keepLoadingOnMissing: true,
+    });
   }
 
   try {
