@@ -1015,6 +1015,14 @@ textarea:focus {
   padding-top: 46px;
 }
 
+.gallery-story-heading {
+  margin-bottom: 24px;
+}
+
+.gallery-story-heading h2 {
+  color: var(--white);
+}
+
 .story-photo-grid {
   column-count: 4;
   column-gap: 6px;

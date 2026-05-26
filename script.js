@@ -351,7 +351,7 @@ function renderDetailPage(entries, options = {}) {
 
     detailName.textContent = "Gallery not found";
     detailDescription.textContent = "Return to the galleries page and choose a published story.";
-    detailTitle.textContent = "No preview available.";
+    detailTitle.textContent = "Selected moments";
     detailPhotoGrid.innerHTML = "";
     galleryStoryPage?.classList.remove("is-loading");
     return;
@@ -380,7 +380,7 @@ function renderDetailPage(entries, options = {}) {
     entry.description || entry.title || "A selected preview from the Vivid Pixels archive.";
   detailFullLink.href = link;
   detailFullLink.textContent = entry.button_text || "View Full Gallery";
-  detailTitle.textContent = entry.title || "Gallery preview.";
+  detailTitle.textContent = "Selected moments";
   detailPhotoGrid.innerHTML = displayImages
     .map(
       (image, photoIndex) => `
