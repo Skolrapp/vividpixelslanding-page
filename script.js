@@ -346,7 +346,7 @@ function renderDetailPage(entries) {
   detailPhotoGrid.innerHTML = displayImages
     .map(
       (image, photoIndex) => `
-        <figure class="${photoIndex % 7 === 0 ? "is-large" : ""}">
+        <figure class="story-tile story-tile-${photoIndex % 12}">
           <img src="${escapeHtml(image)}" alt="${escapeHtml(entry.name || "Vivid Pixels")} preview ${photoIndex + 1}" loading="lazy" />
         </figure>
       `,
