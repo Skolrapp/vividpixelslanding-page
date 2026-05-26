@@ -490,10 +490,9 @@ function renderPortfolioCards(entries) {
           <a class="portfolio-open" href="${detailUrl}">
             <img src="${image}" alt="${name} gallery preview" onerror="this.src='${fallbackImage}'" />
             ${isVideo ? '<span class="play-badge" aria-hidden="true">▶</span>' : ""}
-            <span class="portfolio-type">${formatPortfolioType(category)}</span>
+            ${isVideo ? `<span class="portfolio-type">${formatPortfolioType(category)}</span>` : ""}
             <div>
-              <p>${name}</p>
-              <h3>${cardTitle}</h3>
+              <h3>${name}</h3>
               <span>${buttonText}</span>
             </div>
           </a>
