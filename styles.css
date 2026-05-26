@@ -1267,6 +1267,90 @@ textarea:focus {
   font-size: 13px;
 }
 
+@media (min-width: 901px) and (max-width: 1180px) {
+  .site-header {
+    grid-template-columns: 1fr auto;
+    gap: 12px;
+  }
+
+  nav,
+  .header-cta {
+    display: none;
+  }
+
+  .menu-toggle {
+    display: inline-flex;
+  }
+
+  .site-header.is-menu-open .mobile-menu {
+    display: grid;
+  }
+
+  .work-heading,
+  .split-heading,
+  .contact-band {
+    grid-template-columns: 1fr;
+  }
+
+  .gallery-filters {
+    justify-content: flex-start;
+  }
+
+  .portfolio-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .portfolio-card {
+    min-height: 460px;
+  }
+
+  .portfolio-open {
+    min-height: 460px;
+  }
+
+  .portfolio-video,
+  .portfolio-embed {
+    grid-column: 1 / -1;
+  }
+
+  .portfolio-embed {
+    grid-template-columns: 1fr;
+    width: 100%;
+    margin-left: 0;
+    padding: clamp(30px, 5vw, 54px);
+  }
+
+  .portfolio-embed.is-reversed .video-card-copy,
+  .portfolio-embed.is-reversed .video-frame {
+    order: initial;
+  }
+
+  .portfolio-embed .video-card-copy {
+    order: -1;
+    padding: 0;
+  }
+
+  .gallery-story-hero {
+    grid-template-columns: 1fr;
+    padding-top: 58px;
+  }
+
+  .gallery-story-image,
+  .gallery-story-image img {
+    min-height: 560px;
+  }
+
+  .story-photo-grid {
+    column-count: 3;
+  }
+
+  .service-grid,
+  .process-grid,
+  .faq-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
 @media (max-width: 900px) {
   .site-header {
     grid-template-columns: 1fr auto;
