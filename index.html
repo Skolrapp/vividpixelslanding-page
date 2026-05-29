@@ -9,7 +9,7 @@
       content="Preview wedding photography and video packages, view Vivid Pixels wedding work, and read client testimonials."
     />
     <link rel="preconnect" href="https://images.unsplash.com" />
-    <link rel="stylesheet" href="styles.css?v=20260529a" />
+    <link rel="stylesheet" href="styles.css?v=20260529b" />
   </head>
   <body>
     <header class="site-header">
@@ -57,36 +57,47 @@
         </div>
       </section>
 
-      <section class="intro-strip" aria-label="Services">
-        <span><strong>120+</strong> weddings captured</span>
-        <span><strong>48hr</strong> sneak peeks</span>
-        <span><strong>4.9/5</strong> couple rating</span>
-        <span><strong>Photo + video</strong> wedding collections</span>
+      <section class="editorial-intro" aria-label="Vivid Pixels wedding approach">
+        <div>
+          <p class="eyebrow">The feeling first</p>
+          <h2>Your wedding is not only how it looked. <span>It is how it felt.</span></h2>
+        </div>
+        <p>
+          Vivid Pixels creates wedding photography and films with calm direction,
+          natural emotion, and a cinematic sense of memory.
+        </p>
+        <div class="intro-proof" aria-label="Studio highlights">
+          <span><strong>120+</strong> weddings captured</span>
+          <span><strong>48hr</strong> sneak peeks</span>
+          <span><strong>4.9/5</strong> couple rating</span>
+        </div>
       </section>
 
-      <section class="section services-section" id="services" aria-labelledby="services-title">
-        <div class="section-heading split-heading">
-          <div>
-            <p class="eyebrow">What we create</p>
-            <h2 id="services-title">Coverage designed for the full feeling of your wedding day.</h2>
-          </div>
-          <p>From getting ready to the last dance, Vivid Pixels balances clear direction with quiet observation so your wedding gallery feels polished without feeling staged.</p>
+      <section class="section story-section" id="services" aria-labelledby="services-title">
+        <div class="section-heading story-heading">
+          <p class="eyebrow">The wedding story</p>
+          <h2 id="services-title">A day told through quiet beauty, movement, and connection.</h2>
         </div>
-        <div class="service-grid">
-          <article class="service-card">
-            <span>01</span>
-            <h3>Wedding Photography</h3>
-            <p>Editorial portraits, family moments, ceremony details, and reception coverage delivered in a refined wedding gallery.</p>
+        <div class="story-grid" aria-label="Wedding storytelling moments">
+          <article class="story-card story-card-large">
+            <img src="assets/gallery/wedding-1.jpg" alt="Quiet wedding preparation captured by Vivid Pixels" />
+            <p>The quiet before the ceremony.</p>
           </article>
-          <article class="service-card">
-            <span>02</span>
-            <h3>Wedding Video</h3>
-            <p>Highlight films, vows, speeches, music, and atmosphere shaped into a cinematic story you can replay for years.</p>
+          <article class="story-card">
+            <img src="assets/gallery/wedding-2.jpg" alt="Wedding ceremony emotion and family connection" />
+            <p>The moment families become one.</p>
           </article>
-          <article class="service-card">
-            <span>03</span>
-            <h3>Traditional Ceremonies</h3>
-            <p>Respectful coverage for introductions, send-offs, cultural ceremonies, family blessings, and wedding-related celebrations.</p>
+          <article class="story-card">
+            <img src="assets/gallery/wedding-3.jpg" alt="Editorial couple portrait by Vivid Pixels" />
+            <p>Portraits with presence, not pressure.</p>
+          </article>
+          <article class="story-card">
+            <img src="assets/gallery/wedding-4.jpg" alt="Family connection during a wedding celebration" />
+            <p>Family, culture, and the people who carried you here.</p>
+          </article>
+          <article class="story-card story-card-wide">
+            <img src="assets/gallery/wedding-5.jpg" alt="Wedding reception celebration and movement" />
+            <p>Celebration, movement, and memory.</p>
           </article>
         </div>
       </section>
@@ -96,7 +107,7 @@
           <div>
             <p class="eyebrow">Selected work</p>
             <h2 id="work-title">A preview of the Vivid Pixels look.</h2>
-            <p>Modern color, clean compositions, real emotion, and enough polish to make every image feel intentional.</p>
+            <p>Modern color. Clean compositions. Real emotion. Images that feel intentional without feeling staged.</p>
           </div>
           <a
             class="button button-primary"
@@ -105,58 +116,53 @@
             View Gallery
           </a>
         </div>
-        <div class="work-slideshow" aria-label="Wedding photo preview slideshow">
-          <div class="slide-stage">
-            <img id="gallerySlide" src="assets/gallery/wedding-1.jpg" alt="Vivid Pixels wedding gallery preview" />
-            <div class="slide-caption">
-              <span id="galleryCategory">Wedding Preview</span>
-              <h3 id="galleryTitle">A glimpse into the emotion, beauty, and story of the day</h3>
-              <a
-                href="gallery.html"
-              >
-                Open gallery
-              </a>
-            </div>
-            <button class="slide-control prev" type="button" aria-label="Previous photo" id="galleryPrev">‹</button>
-            <button class="slide-control next" type="button" aria-label="Next photo" id="galleryNext">›</button>
-          </div>
-          <div class="slide-thumbnails" id="galleryThumbs" aria-label="Choose preview photo"></div>
-        </div>
-        <div class="gallery-panel">
-          <div>
-            <p class="eyebrow">Full portfolio</p>
-            <h3>Want to browse complete client galleries?</h3>
-            <p>Preview curated wedding work here, then open the full gallery for fuller albums, ceremony sets, couple portraits, and delivered collections.</p>
-          </div>
-          <a
-            class="button button-secondary"
-            href="gallery.html"
-          >
-            Open Gallery
+        <div class="editorial-work" aria-label="Editorial wedding portfolio preview">
+          <a class="work-image work-image-featured" href="gallery.html">
+            <img src="assets/gallery/hero.jpg" alt="Cinematic wedding portrait from Vivid Pixels" />
+            <span>Full wedding stories</span>
           </a>
+          <a class="work-image" href="gallery.html">
+            <img src="assets/gallery/wedding-6.jpg" alt="Elegant wedding detail captured by Vivid Pixels" />
+            <span>Details with atmosphere</span>
+          </a>
+          <a class="work-image" href="gallery.html">
+            <img src="assets/gallery/wedding-2.jpg" alt="Emotional wedding photography moment" />
+            <span>Emotion as it happens</span>
+          </a>
+          <a class="work-image work-image-wide" href="gallery.html">
+            <img src="assets/gallery/wedding-4.jpg" alt="Cinematic wedding celebration by Vivid Pixels" />
+            <span>Films and photographs made to be felt again</span>
+          </a>
+        </div>
+        <div class="gallery-panel gallery-panel-minimal">
+          <div>
+            <p class="eyebrow">Complete galleries</p>
+            <h3>See the story beyond one frame.</h3>
+          </div>
+          <a class="button button-secondary" href="gallery.html">Open Gallery</a>
         </div>
       </section>
 
       <section class="section process-section" aria-labelledby="process-title">
         <div class="section-heading">
           <p class="eyebrow">The experience</p>
-          <h2 id="process-title">Simple planning, calm direction, beautiful delivery.</h2>
+          <h2 id="process-title">Calm direction. Quiet observation. Beautiful delivery.</h2>
         </div>
         <div class="process-grid">
           <article>
             <span>01</span>
             <h3>Discover</h3>
-            <p>We learn the wedding date, venues, timeline, ceremony style, and what matters most to you.</p>
+            <p>Your date, venues, timeline, and what you want to remember most.</p>
           </article>
           <article>
             <span>02</span>
             <h3>Direct</h3>
-            <p>We guide couple portraits, capture key moments, and keep the experience relaxed.</p>
+            <p>Gentle guidance where needed, space for real moments everywhere else.</p>
           </article>
           <article>
             <span>03</span>
             <h3>Deliver</h3>
-            <p>Sneak peeks arrive quickly, followed by your complete wedding gallery, video edits, or both.</p>
+            <p>Sneak peeks first, then the full wedding gallery, films, or both.</p>
           </article>
         </div>
       </section>
@@ -363,6 +369,6 @@
       <span>Wedding photography, video, testimonials, and package previews</span>
     </footer>
 
-    <script src="script.js?v=20260529a"></script>
+    <script src="script.js?v=20260529b"></script>
   </body>
 </html>
