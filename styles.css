@@ -163,35 +163,39 @@ nav a[aria-current="page"] {
 
 .hero {
   position: relative;
-  min-height: calc(100vh - 82px);
+  min-height: calc(100svh - 82px);
   display: flex;
   align-items: center;
   overflow: hidden;
+  isolation: isolate;
+  background: #100d0b;
 }
 
 .hero-media {
   position: absolute;
   inset: 0;
   background-image: url("assets/gallery/hero.jpg");
-  background-position: center;
+  background-position: center 38%;
   background-size: cover;
-  filter: saturate(1.08) contrast(1.08) brightness(1.02);
+  filter: saturate(0.92) contrast(1.08) brightness(0.78);
+  transform: scale(1.02);
 }
 
 .hero-overlay {
   position: absolute;
   inset: 0;
   background:
-    linear-gradient(90deg, rgba(246, 241, 233, 0.9), rgba(246, 241, 233, 0.64) 42%, rgba(246, 241, 233, 0.08)),
-    radial-gradient(circle at 74% 18%, rgba(216, 173, 98, 0.18), transparent 25rem),
-    linear-gradient(180deg, rgba(246, 241, 233, 0.04), rgba(246, 241, 233, 0.38));
+    linear-gradient(90deg, rgba(10, 8, 7, 0.82), rgba(10, 8, 7, 0.52) 42%, rgba(10, 8, 7, 0.16)),
+    linear-gradient(180deg, rgba(10, 8, 7, 0.34), rgba(10, 8, 7, 0.12) 48%, rgba(10, 8, 7, 0.68));
 }
 
 .hero-content {
   position: relative;
   z-index: 1;
   width: min(1180px, 100%);
-  padding: 92px clamp(22px, 6vw, 82px) 74px;
+  padding: clamp(92px, 12vh, 140px) clamp(22px, 7vw, 96px) clamp(72px, 10vh, 118px);
+  color: #fffaf2;
+  animation: heroFadeIn 900ms ease both;
 }
 
 .eyebrow {
@@ -224,6 +228,19 @@ h1 {
   line-height: 0.94;
 }
 
+.hero h1 {
+  max-width: 940px;
+  margin-bottom: 28px;
+  color: #fffaf2;
+  font-size: clamp(52px, 7.2vw, 106px);
+  line-height: 0.92;
+  text-wrap: balance;
+}
+
+.hero h1 span {
+  display: block;
+}
+
 h2 {
   max-width: 760px;
   margin-bottom: 16px;
@@ -238,10 +255,10 @@ h3 {
 }
 
 .hero-content > p:not(.eyebrow) {
-  max-width: 610px;
-  color: var(--silver);
-  font-size: 19px;
-  line-height: 1.75;
+  max-width: 560px;
+  color: rgba(255, 250, 242, 0.78);
+  font-size: clamp(17px, 1.5vw, 21px);
+  line-height: 1.72;
 }
 
 .hero-actions,
@@ -252,7 +269,7 @@ h3 {
 }
 
 .hero-actions {
-  margin-top: 34px;
+  margin-top: 40px;
 }
 
 .button {
@@ -287,6 +304,38 @@ h3 {
   border: 1px solid var(--line-dark);
   background: rgba(255, 250, 242, 0.54);
   color: var(--white);
+}
+
+.hero .eyebrow {
+  margin-bottom: 24px;
+  color: rgba(216, 173, 98, 0.92);
+}
+
+.hero .button {
+  min-width: 152px;
+}
+
+.hero .button-secondary {
+  border-color: rgba(255, 250, 242, 0.5);
+  background: rgba(255, 250, 242, 0.08);
+  color: #fffaf2;
+  backdrop-filter: blur(10px);
+}
+
+.hero .button-secondary:hover {
+  background: rgba(255, 250, 242, 0.16);
+}
+
+@keyframes heroFadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(14px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 .hero-proof {
@@ -1287,16 +1336,16 @@ textarea:focus {
   }
 
   .hero {
-    min-height: 840px;
+    min-height: calc(100svh - 82px);
   }
 
   .hero-content {
-    padding: 82px clamp(30px, 6vw, 64px) 58px;
+    padding: 92px clamp(30px, 7vw, 72px) 72px;
   }
 
-  h1 {
+  .hero h1 {
     max-width: 720px;
-    font-size: clamp(58px, 8vw, 86px);
+    font-size: clamp(64px, 8vw, 90px);
   }
 
   h2 {
@@ -1445,18 +1494,23 @@ textarea:focus {
   }
 
   .hero {
-    min-height: 780px;
+    min-height: calc(100svh - 72px);
   }
 
   .hero-overlay {
     background:
-      linear-gradient(180deg, rgba(246, 241, 233, 0.28), rgba(246, 241, 233, 0.86)),
-      radial-gradient(circle at 80% 20%, rgba(216, 173, 98, 0.18), transparent 20rem);
+      linear-gradient(180deg, rgba(10, 8, 7, 0.18), rgba(10, 8, 7, 0.5) 42%, rgba(10, 8, 7, 0.88)),
+      linear-gradient(90deg, rgba(10, 8, 7, 0.38), rgba(10, 8, 7, 0.08));
   }
 
   .hero-content {
     align-self: flex-end;
-    padding: 72px 20px 48px;
+    padding: 72px 22px 54px;
+  }
+
+  .hero h1 {
+    max-width: 680px;
+    font-size: clamp(50px, 10vw, 76px);
   }
 
   .intro-strip,
@@ -1571,6 +1625,10 @@ textarea:focus {
 @media (max-width: 520px) {
   h1 {
     font-size: 46px;
+  }
+
+  .hero h1 {
+    font-size: clamp(42px, 13vw, 56px);
   }
 
   h2 {
