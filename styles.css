@@ -1070,13 +1070,86 @@ textarea:focus {
 
 .contact-band {
   display: grid;
-  grid-template-columns: minmax(0, 0.95fr) minmax(320px, 520px);
-  gap: 42px;
+  grid-template-columns: minmax(0, 0.9fr) minmax(340px, 560px);
+  gap: clamp(42px, 7vw, 94px);
   align-items: start;
-  padding: 96px clamp(20px, 7vw, 94px);
+  padding: clamp(92px, 9vw, 138px) clamp(20px, 7vw, 94px);
   background:
-    radial-gradient(circle at 12% 0%, rgba(216, 173, 98, 0.18), transparent 24rem),
+    linear-gradient(90deg, rgba(255, 250, 242, 0.68), rgba(255, 250, 242, 0.94)),
+    radial-gradient(circle at 12% 0%, rgba(216, 173, 98, 0.16), transparent 24rem),
     var(--black);
+}
+
+.contact-intro {
+  position: sticky;
+  top: 120px;
+}
+
+.contact-intro h2 {
+  max-width: 640px;
+  margin-bottom: 24px;
+}
+
+.contact-intro > p {
+  max-width: 560px;
+  color: var(--silver);
+  font-size: clamp(18px, 1.7vw, 22px);
+  line-height: 1.75;
+}
+
+.contact-note {
+  max-width: 520px;
+  margin-top: clamp(44px, 6vw, 74px);
+  padding-top: 28px;
+  border-top: 1px solid var(--line-dark);
+}
+
+.contact-note p {
+  margin-bottom: 18px;
+  color: var(--silver);
+  font-size: 15px;
+  line-height: 1.75;
+}
+
+.contact-note a {
+  display: inline-flex;
+  color: var(--orange-dark);
+  font-size: 13px;
+  font-weight: 900;
+  letter-spacing: 0.04em;
+  text-decoration: none;
+  text-transform: uppercase;
+}
+
+.contact-note a::after {
+  content: "↗";
+  margin-left: 8px;
+  color: var(--gold);
+}
+
+.contact-band .lead-form {
+  gap: 18px;
+  padding: clamp(24px, 4vw, 40px);
+  border-radius: 0;
+  background: rgba(255, 250, 242, 0.78);
+  box-shadow: 0 24px 80px rgba(41, 31, 22, 0.12);
+}
+
+.contact-band .lead-form label {
+  color: var(--graphite);
+  letter-spacing: 0.02em;
+}
+
+.contact-band .lead-form input,
+.contact-band .lead-form select,
+.contact-band .lead-form textarea {
+  border-radius: 0;
+  border-color: rgba(17, 17, 17, 0.14);
+  background: rgba(255, 250, 242, 0.62);
+}
+
+.contact-band .lead-form button {
+  margin-top: 8px;
 }
 
 .film-hero {
@@ -1853,6 +1926,10 @@ textarea:focus {
     grid-template-columns: 1fr;
   }
 
+  .contact-intro {
+    position: static;
+  }
+
   .editorial-intro {
     padding-top: 72px;
     padding-bottom: 42px;
@@ -2008,6 +2085,10 @@ textarea:focus {
   .contact-band {
     padding-top: 70px;
     padding-bottom: 70px;
+  }
+
+  .contact-band .lead-form {
+    padding: 22px;
   }
 
   .site-footer {

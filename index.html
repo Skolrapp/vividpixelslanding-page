@@ -9,7 +9,7 @@
       content="Preview wedding photography and video packages, view Vivid Pixels wedding work, and read client testimonials."
     />
     <link rel="preconnect" href="https://images.unsplash.com" />
-    <link rel="stylesheet" href="styles.css?v=20260529c" />
+    <link rel="stylesheet" href="styles.css?v=20260529d" />
   </head>
   <body>
     <header class="site-header">
@@ -21,21 +21,21 @@
         <a href="https://quotemini.vividpixels.co.tz" target="_blank" rel="noopener noreferrer">Mini Event Quote</a>
         <a href="gallery.html">Galleries</a>
         <a href="#reviews">Testimonials</a>
-        <a href="#contact">Contact</a>
+        <a href="#contact">Inquire</a>
       </nav>
       <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="mobileMenu">
         <span></span>
         <span></span>
         <span></span>
       </button>
-      <a class="header-cta" href="#contact">Book a Date</a>
+      <a class="header-cta" href="#contact">Begin Inquiry</a>
       <div class="mobile-menu" id="mobileMenu">
         <a href="#packages">Preview Packages</a>
         <a href="https://quotemini.vividpixels.co.tz" target="_blank" rel="noopener noreferrer">Mini Event Quote</a>
         <a href="gallery.html">Galleries</a>
         <a href="#reviews">Testimonials</a>
         <a href="gallery.html">View Our Work</a>
-        <a href="#contact">Contact</a>
+        <a href="#contact">Inquire</a>
       </div>
     </header>
 
@@ -361,32 +361,43 @@
       </section>
 
       <section class="contact-band" id="contact" aria-labelledby="contact-title">
-        <div>
-          <p class="eyebrow">Availability</p>
-          <h2 id="contact-title">Ready to see if your date is open?</h2>
-          <p>Tell me your wedding date, location, and the package you like. I will confirm availability and help shape the best coverage plan.</p>
+        <div class="contact-intro">
+          <p class="eyebrow">Private consultation</p>
+          <h2 id="contact-title">Begin with your date.</h2>
+          <p>Share a few details about your wedding, and we will guide you toward the most suitable coverage experience.</p>
+          <div class="contact-note">
+            <p>We respond with availability, guidance, and the most suitable coverage option for your celebration.</p>
+            <a href="https://wa.me/255713550069" target="_blank" rel="noopener noreferrer">Message Vivid Pixels on WhatsApp</a>
+          </div>
         </div>
         <form class="lead-form" id="availabilityForm">
           <label>
-            Name
-            <input name="name" type="text" placeholder="Your name" required />
+            Names
+            <input name="name" type="text" placeholder="Your names" required />
           </label>
           <label>
             Wedding date
             <input id="weddingDate" name="date" type="date" min="2026-05-14" required />
           </label>
           <label>
-            Package
-            <select id="packageSelect" name="package" required>
-              <option>Package One</option>
-              <option>Package Two</option>
-              <option>Package Three</option>
-              <option>Bespoke</option>
+            Wedding location
+            <input name="location" type="text" placeholder="Venue, city, or region" required />
+          </label>
+          <label>
+            Estimated guest count
+            <input name="guests" type="number" min="1" inputmode="numeric" placeholder="e.g. 150" required />
+          </label>
+          <label>
+            Coverage interest
+            <select id="packageSelect" name="coverage" required>
+              <option>Photography</option>
+              <option>Film</option>
+              <option>Photography + Film</option>
             </select>
           </label>
           <label>
-            Message
-            <textarea name="message" rows="4" placeholder="Venue, city, guest count, video needs, or special requests" required></textarea>
+            Tell us what matters most to you
+            <textarea name="message" rows="5" placeholder="The feeling, people, traditions, or moments you want remembered most" required></textarea>
           </label>
           <button class="button button-primary" type="submit">Request Availability</button>
         </form>
@@ -398,6 +409,6 @@
       <span>Wedding photography, video, testimonials, and package previews</span>
     </footer>
 
-    <script src="script.js?v=20260529c"></script>
+    <script src="script.js?v=20260529d"></script>
   </body>
 </html>

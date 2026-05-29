@@ -156,7 +156,7 @@ document.querySelectorAll("[data-package]").forEach((link) => {
     const selectedPackage = link.dataset.package;
 
     if (packageSelect) {
-      packageSelect.value = selectedPackage;
+      packageSelect.value = selectedPackage === "Bespoke" ? "Photography" : "Photography + Film";
     }
   });
 });
@@ -167,10 +167,12 @@ availabilityForm?.addEventListener("submit", (event) => {
   const formData = new FormData(availabilityForm);
   const name = String(formData.get("name") || "").trim();
   const date = String(formData.get("date") || "").trim();
-  const selectedPackage = String(formData.get("package") || "").trim();
+  const location = String(formData.get("location") || "").trim();
+  const guests = String(formData.get("guests") || "").trim();
+  const coverage = String(formData.get("coverage") || "").trim();
   const message = String(formData.get("message") || "").trim();
 
-  if (!name || !date || !selectedPackage || !message) {
+  if (!name || !date || !location || !guests || !coverage || !message) {
     availabilityForm.reportValidity();
     return;
   }
@@ -188,8 +190,10 @@ availabilityForm?.addEventListener("submit", (event) => {
 
 Name: ${name}
 Wedding date: ${date}
-Package: ${selectedPackage}
-Details: ${message}`;
+Wedding location: ${location}
+Estimated guest count: ${guests}
+Coverage interest: ${coverage}
+What matters most: ${message}`;
 
   window.location.href = `https://wa.me/255713550069?text=${encodeURIComponent(whatsappMessage)}`;
 });
