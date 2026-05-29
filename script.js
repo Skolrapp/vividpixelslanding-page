@@ -1,6 +1,8 @@
 const availabilityForm = document.querySelector("#availabilityForm");
 const weddingDate = document.querySelector("#weddingDate");
 const packageSelect = document.querySelector("#packageSelect");
+const selectedCollection = document.querySelector("#selectedCollection");
+const selectedCollectionNote = document.querySelector("#selectedCollectionNote");
 const gallerySlide = document.querySelector("#gallerySlide");
 const galleryCategory = document.querySelector("#galleryCategory");
 const galleryTitle = document.querySelector("#galleryTitle");
@@ -152,9 +154,20 @@ if (weddingDate) {
 document.querySelectorAll("[data-package]").forEach((link) => {
   link.addEventListener("click", () => {
     const selectedPackage = link.dataset.package;
+    const collection = link.dataset.collection || selectedPackage;
 
     if (packageSelect) {
       packageSelect.value = selectedPackage === "Bespoke" ? "Photography" : "Photography + Film";
+    }
+
+    if (selectedCollection) {
+      selectedCollection.value = collection;
+    }
+
+    const collectionName = selectedCollectionNote?.querySelector("strong");
+    if (selectedCollectionNote && collectionName) {
+      collectionName.textContent = collection;
+      selectedCollectionNote.hidden = false;
     }
   });
 });
@@ -167,6 +180,7 @@ availabilityForm?.addEventListener("submit", (event) => {
   const date = String(formData.get("date") || "").trim();
   const location = String(formData.get("location") || "").trim();
   const guests = String(formData.get("guests") || "").trim();
+  const collection = String(formData.get("collection") || "").trim();
   const coverage = String(formData.get("coverage") || "").trim();
   const message = String(formData.get("message") || "").trim();
 
@@ -190,6 +204,7 @@ Name: ${name}
 Wedding date: ${date}
 Wedding location: ${location}
 Estimated guest count: ${guests}
+Selected collection: ${collection || "Not selected yet"}
 Coverage interest: ${coverage}
 What matters most: ${message}`;
 

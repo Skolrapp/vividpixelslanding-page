@@ -9,7 +9,7 @@
       content="Preview wedding photography and video packages, view Vivid Pixels wedding work, and read client testimonials."
     />
     <link rel="preconnect" href="https://images.unsplash.com" />
-    <link rel="stylesheet" href="styles.css?v=20260529g" />
+    <link rel="stylesheet" href="styles.css?v=20260529h" />
   </head>
   <body>
     <header class="site-header">
@@ -21,21 +21,21 @@
         <a href="https://quotemini.vividpixels.co.tz" target="_blank" rel="noopener noreferrer">Mini Event Quote</a>
         <a href="gallery.html">Galleries</a>
         <a href="#reviews">Testimonials</a>
-        <a href="#contact">Inquire</a>
+        <a id="cta-nav-inquire" href="#contact">Inquire</a>
       </nav>
       <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="mobileMenu">
         <span></span>
         <span></span>
         <span></span>
       </button>
-      <a class="header-cta" href="#contact">Begin Inquiry</a>
+      <a class="header-cta" id="cta-header-inquire" href="#contact">Inquire</a>
       <div class="mobile-menu" id="mobileMenu">
         <a href="#packages">Preview Packages</a>
         <a href="https://quotemini.vividpixels.co.tz" target="_blank" rel="noopener noreferrer">Mini Event Quote</a>
         <a href="gallery.html">Galleries</a>
         <a href="#reviews">Testimonials</a>
         <a href="gallery.html">View Our Work</a>
-        <a href="#contact">Inquire</a>
+        <a class="mobile-inquiry-link" id="cta-mobile-inquire" href="#contact">Inquire</a>
       </div>
     </header>
 
@@ -52,7 +52,7 @@
           </p>
           <div class="hero-actions">
             <a class="button button-primary" href="gallery.html">View Stories</a>
-            <a class="button button-secondary" href="#contact">Inquire</a>
+            <a class="button button-secondary" id="cta-hero-inquire" href="#contact">Inquire</a>
           </div>
         </div>
       </section>
@@ -217,8 +217,10 @@
             </ul>
             <a
               class="button button-outline"
-              href="https://api.whatsapp.com/send?phone=255713550069&text=Hi%20Vivid%20Pixels%2C%20I%20would%20like%20to%20ask%20about%20Package%20One%20for%20my%20wedding.%0A%0AWedding%20date%3A%0AWedding%20location%3A%0AEstimated%20guest%20count%3A"
+              id="cta-package-intimate"
+              href="#contact"
               data-package="Package One"
+              data-collection="Intimate Collection"
             >
               Inquire About This Collection
             </a>
@@ -241,8 +243,10 @@
             </ul>
             <a
               class="button button-primary"
-              href="https://api.whatsapp.com/send?phone=255713550069&text=Hi%20Vivid%20Pixels%2C%20I%20would%20like%20to%20ask%20about%20Package%20Two%20for%20my%20wedding.%0A%0AWedding%20date%3A%0AWedding%20location%3A%0AEstimated%20guest%20count%3A"
+              id="cta-package-cinematic"
+              href="#contact"
               data-package="Package Two"
+              data-collection="Cinematic Collection"
             >
               Inquire About This Collection
             </a>
@@ -264,8 +268,10 @@
             </ul>
             <a
               class="button button-outline"
-              href="https://api.whatsapp.com/send?phone=255713550069&text=Hi%20Vivid%20Pixels%2C%20I%20would%20like%20to%20ask%20about%20Package%20Three%20for%20my%20wedding.%0A%0AWedding%20date%3A%0AWedding%20location%3A%0AEstimated%20guest%20count%3A"
+              id="cta-package-documentary"
+              href="#contact"
               data-package="Package Three"
+              data-collection="Documentary Collection"
             >
               Inquire About This Collection
             </a>
@@ -285,8 +291,10 @@
             </ul>
             <a
               class="button button-outline"
-              href="https://api.whatsapp.com/send?phone=255713550069&text=Hi%20Vivid%20Pixels%2C%20I%20would%20like%20to%20ask%20about%20the%20Bespoke%20wedding%20package."
+              id="cta-package-bespoke"
+              href="#contact"
               data-package="Bespoke"
+              data-collection="Bespoke Collection"
             >
               Inquire About This Collection
             </a>
@@ -369,10 +377,12 @@
           <p>Share a few details about your wedding, and we will guide you toward the most suitable coverage experience.</p>
           <div class="contact-note">
             <p>We respond with availability, guidance, and the most suitable coverage option for your celebration.</p>
-            <a href="https://wa.me/255713550069" target="_blank" rel="noopener noreferrer">Message Vivid Pixels on WhatsApp</a>
+            <a id="cta-whatsapp-inquiry" href="https://wa.me/255713550069" target="_blank" rel="noopener noreferrer">Start Inquiry on WhatsApp</a>
           </div>
         </div>
         <form class="lead-form" id="availabilityForm">
+          <input id="selectedCollection" name="collection" type="hidden" value="" />
+          <p class="selected-collection-note" id="selectedCollectionNote" hidden>Selected collection: <strong></strong></p>
           <label>
             Names
             <input name="name" type="text" placeholder="Your names" required />
@@ -401,16 +411,23 @@
             Tell us what matters most to you
             <textarea name="message" rows="5" placeholder="The feeling, people, traditions, or moments you want remembered most" required></textarea>
           </label>
-          <button class="button button-primary" type="submit">Request Availability</button>
+          <button class="button button-primary" id="cta-form-whatsapp" type="submit">Continue on WhatsApp</button>
         </form>
       </section>
     </main>
 
     <footer class="site-footer">
-      <span>Vivid Pixels</span>
-      <span>Wedding photography, video, testimonials, and package previews</span>
+      <div>
+        <strong>Vivid Pixels</strong>
+        <span>Wedding photography and films in Dar es Salaam & selected destinations across Tanzania.</span>
+      </div>
+      <div class="footer-links" aria-label="Vivid Pixels contact links">
+        <a href="https://wa.me/255713550069">WhatsApp: +255 713 550 069</a>
+        <a href="mailto:hello@vividpixels.co.tz">hello@vividpixels.co.tz</a>
+        <a href="https://www.instagram.com/vividpixelsstudio/" target="_blank" rel="noopener noreferrer">Instagram</a>
+      </div>
     </footer>
 
-    <script src="script.js?v=20260529g"></script>
+    <script src="script.js?v=20260529h"></script>
   </body>
 </html>

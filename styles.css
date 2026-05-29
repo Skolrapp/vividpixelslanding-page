@@ -28,6 +28,12 @@ html {
   scroll-behavior: smooth;
 }
 
+#contact,
+#packages,
+#reviews {
+  scroll-margin-top: 96px;
+}
+
 body {
   margin: 0;
   background: var(--black);
@@ -153,6 +159,11 @@ nav a[aria-current="page"] {
   content: "›";
   color: var(--orange);
   font-size: 20px;
+}
+
+.mobile-menu .mobile-inquiry-link {
+  border-color: rgba(184, 107, 56, 0.28);
+  background: rgba(216, 173, 98, 0.16);
 }
 
 .header-cta {
@@ -1262,6 +1273,20 @@ textarea:focus {
   margin-top: 8px;
 }
 
+.selected-collection-note {
+  margin: 0;
+  border-bottom: 1px solid rgba(17, 17, 17, 0.1);
+  padding-bottom: 16px;
+  color: var(--silver);
+  font-size: 13px;
+  font-weight: 800;
+  letter-spacing: 0.02em;
+}
+
+.selected-collection-note strong {
+  color: var(--orange-dark);
+}
+
 .film-hero {
   position: relative;
   min-height: min(760px, calc(100vh - 82px));
@@ -1763,27 +1788,60 @@ textarea:focus {
 }
 
 .site-footer {
-  display: flex;
-  justify-content: space-between;
-  gap: 18px;
-  padding: 28px clamp(20px, 5vw, 56px);
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: 28px;
+  align-items: start;
+  padding: 32px clamp(20px, 5vw, 56px);
   border-top: 1px solid var(--line);
   background: #fffaf2;
   color: var(--silver);
   font-size: 13px;
 }
 
+.site-footer div:first-child {
+  display: grid;
+  gap: 8px;
+}
+
+.site-footer strong {
+  color: var(--white);
+  font-size: 15px;
+}
+
+.site-footer span {
+  max-width: 560px;
+  line-height: 1.65;
+}
+
+.footer-links {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  gap: 12px 18px;
+}
+
+.footer-links a {
+  color: var(--orange-dark);
+  font-weight: 900;
+  text-decoration: none;
+}
+
+.footer-links a:hover {
+  color: var(--white);
+}
+
 @media (min-width: 901px) and (max-width: 1180px) {
   .site-header {
-    grid-template-columns: 1fr auto;
+    grid-template-columns: 1fr auto auto;
     gap: 12px;
   }
 
-  nav,
-  .header-cta {
+  nav {
     display: none;
   }
 
+  .header-cta,
   .menu-toggle {
     display: inline-flex;
   }
@@ -1964,7 +2022,7 @@ textarea:focus {
 
 @media (max-width: 900px) {
   .site-header {
-    grid-template-columns: 1fr auto;
+    grid-template-columns: 1fr auto auto;
     gap: 10px;
   }
 
@@ -1986,7 +2044,10 @@ textarea:focus {
   }
 
   .header-cta {
-    display: none;
+    min-height: 42px;
+    display: inline-flex;
+    padding: 0 14px;
+    font-size: 12px;
   }
 
   .hero {
@@ -2199,7 +2260,11 @@ textarea:focus {
   }
 
   .site-footer {
-    flex-direction: column;
+    grid-template-columns: 1fr;
+  }
+
+  .footer-links {
+    justify-content: flex-start;
   }
 }
 
