@@ -1,5 +1,3 @@
-const reviewForm = document.querySelector("#reviewForm");
-const reviewList = document.querySelector("#reviewList");
 const availabilityForm = document.querySelector("#availabilityForm");
 const weddingDate = document.querySelector("#weddingDate");
 const packageSelect = document.querySelector("#packageSelect");
@@ -196,30 +194,6 @@ Coverage interest: ${coverage}
 What matters most: ${message}`;
 
   window.location.href = `https://wa.me/255713550069?text=${encodeURIComponent(whatsappMessage)}`;
-});
-
-reviewForm?.addEventListener("submit", (event) => {
-  event.preventDefault();
-
-  const formData = new FormData(reviewForm);
-  const name = String(formData.get("name") || "").trim();
-  const rating = Number(formData.get("rating") || 5);
-  const message = String(formData.get("message") || "").trim();
-
-  if (!name || !message) return;
-
-  const review = document.createElement("article");
-  review.className = "review-card";
-  review.innerHTML = `
-    <div class="stars" aria-label="${rating} out of 5 stars">${"★".repeat(rating)}${"☆".repeat(5 - rating)}</div>
-    <p></p>
-    <strong></strong>
-  `;
-
-  review.querySelector("p").textContent = message;
-  review.querySelector("strong").textContent = name;
-  reviewList.prepend(review);
-  reviewForm.reset();
 });
 
 function parseCsv(csvText) {

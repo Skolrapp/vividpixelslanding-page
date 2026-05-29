@@ -498,8 +498,6 @@ h3 {
 .service-card,
 .process-grid article,
 .faq-grid article,
-.review-card,
-.review-form,
 .lead-form {
   border: 1px solid var(--line);
   border-radius: 22px;
@@ -1030,38 +1028,67 @@ h3 {
     #fffaf2;
 }
 
-.reviews-layout {
-  display: grid;
-  grid-template-columns: minmax(0, 1fr) 430px;
-  gap: 22px;
-}
-
 .review-list {
   display: grid;
-  gap: 16px;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 1px;
+  border: 1px solid rgba(255, 250, 242, 0.14);
+  background: rgba(255, 250, 242, 0.14);
 }
 
 .review-card {
-  padding: 28px;
+  display: grid;
+  align-content: start;
+  gap: 0;
+  min-height: 100%;
+  padding: 0;
+  border: 0;
+  border-radius: 0;
+  background:
+    linear-gradient(180deg, rgba(255, 250, 242, 0.98), rgba(246, 241, 233, 0.92)),
+    #fffaf2;
+  box-shadow: none;
+}
+
+.review-card img {
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  object-fit: cover;
+  filter: saturate(0.96) contrast(1.02);
+}
+
+.review-card div {
+  display: grid;
+  align-content: start;
+  padding: clamp(26px, 3vw, 38px);
 }
 
 .review-card p {
   color: var(--cream);
-  font-size: 20px;
-  line-height: 1.65;
+  font-family: "Playfair Display", Georgia, serif;
+  font-size: clamp(24px, 2.1vw, 32px);
+  font-weight: 700;
+  line-height: 1.18;
 }
 
 .review-card strong {
+  display: block;
+  margin-top: 20px;
   color: var(--orange);
+  font-size: 15px;
+  font-weight: 900;
 }
 
-.stars {
-  margin-bottom: 14px;
-  color: var(--orange);
-  letter-spacing: 0.06em;
+.review-card span {
+  display: block;
+  margin-top: 6px;
+  color: var(--silver);
+  font-size: 12px;
+  font-weight: 900;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
 }
 
-.review-form,
 .lead-form {
   display: grid;
   gap: 16px;
@@ -1781,7 +1808,6 @@ textarea:focus {
   .split-heading,
   .gallery-panel,
   .authority-layout,
-  .reviews-layout,
   .contact-band {
     grid-template-columns: 1fr;
   }
@@ -1875,6 +1901,7 @@ textarea:focus {
 
   .service-grid,
   .process-grid,
+  .review-list,
   .faq-grid,
   .package-grid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -1884,13 +1911,6 @@ textarea:focus {
     min-height: auto;
   }
 
-  .reviews-layout {
-    gap: 28px;
-  }
-
-  .review-form {
-    max-width: 620px;
-  }
 }
 
 @media (max-width: 900px) {
@@ -1950,7 +1970,7 @@ textarea:focus {
   .service-grid,
   .process-grid,
   .package-grid,
-  .reviews-layout,
+  .review-list,
   .faq-grid,
   .gallery-panel,
   .authority-layout,
