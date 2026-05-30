@@ -934,6 +934,41 @@ h3 {
   color: #c8bdb0;
 }
 
+.investment-intro {
+  max-width: 760px;
+  margin: 0 auto clamp(42px, 6vw, 70px);
+  padding: 0 clamp(8px, 2vw, 20px);
+  text-align: center;
+}
+
+.investment-intro h3 {
+  margin-bottom: 18px;
+  color: #fffaf2;
+  font-size: clamp(34px, 4.2vw, 56px);
+}
+
+.investment-intro > p:not(.eyebrow) {
+  max-width: 690px;
+  margin: 0 auto 24px;
+  color: #c8bdb0;
+  font-size: 17px;
+  line-height: 1.8;
+}
+
+.investment-intro strong {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 46px;
+  border-top: 1px solid rgba(216, 173, 98, 0.38);
+  border-bottom: 1px solid rgba(216, 173, 98, 0.38);
+  padding: 10px 0;
+  color: var(--gold);
+  font-size: 13px;
+  font-weight: 900;
+  letter-spacing: 0.04em;
+}
+
 .package-grid {
   display: grid;
   grid-template-columns: repeat(4, minmax(0, 1fr));
@@ -980,14 +1015,6 @@ h3 {
   text-transform: uppercase;
 }
 
-.price {
-  margin-bottom: 16px;
-  color: var(--white);
-  font-family: "Playfair Display", Georgia, serif;
-  font-size: 44px;
-  font-weight: 700;
-}
-
 .package-card ul {
   display: grid;
   gap: 12px;
@@ -998,9 +1025,18 @@ h3 {
 
 .package-card h3 {
   max-width: 300px;
-  margin-bottom: 16px;
+  margin-bottom: 14px;
   font-size: clamp(30px, 2.8vw, 42px);
   line-height: 0.98;
+}
+
+.collection-investment {
+  margin-bottom: 20px;
+  color: var(--orange-dark);
+  font-size: 12px;
+  font-weight: 900;
+  letter-spacing: 0.04em;
+  line-height: 1.55;
 }
 
 .package-copy {
