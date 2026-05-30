@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://vividpixels.co.tz/sitemap.xml
